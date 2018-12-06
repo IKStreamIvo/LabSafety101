@@ -10,35 +10,55 @@ public class ControllerControl : MonoBehaviour {
 	public LineRenderer pointerLine;
 	public float pointerRange;
 	public float velocityMultiplier = 5f;
+    public Vector3 holdObjectOffset;
+	public bool throwingObjects;
 
 	private Vector3 forward;
 	private float lineLength;
 	private GameObject targetObject;
+	private Rigidbody targetRb;
 	private Vector3 prevPos; 
+	private Vector3 startPickupPos;
+    private Quaternion startPickupRot;
 
 	public TMP_Text dbgVelocity;
 	public TMP_Text dbgAngularVelocity;
 
-	void Start () {
+    void Start () {
 		forward = controller.TransformDirection(Vector3.forward);
 	}
 	
 	void Update () {
 		if (OVRInput.IsControllerConnected(OVRInput.Controller.RTrackedRemote)){
-			if(targetObject != null){
+			if(targetRb != null){
 				if(OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)){
-					targetObject.transform.SetParent(controller);
-					targetObject.GetComponent<Rigidbody>().isKinematic = true;
+					targetRb.transform.SetParent(controller);
+
+					targetRb = targetRb.gameObject.GetComponent<Rigidbody>();
+					if(targetRb == null) targetRb.gameObject.GetComponentInParent<Rigidbody>();
+					targetRb.isKinematic = true;
+					
+					startPickupPos = targetRb.transform.position;
+					startPickupRot = targetRb.transform.rotation;
+					targetRb.transform.localPosition = holdObjectOffset;
+					targetRb.transform.localEulerAngles = Vector3.zero;
+					pointerLine.enabled = false;
 				}else if(OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger)){
-					targetObject.transform.SetParent(null);
-					targetObject.GetComponent<Rigidbody>().isKinematic = false;
-					Vector3 currPos = targetObject.transform.position;
-					targetObject.GetComponent<Rigidbody>().velocity = (currPos - prevPos) / Time.deltaTime * velocityMultiplier;
-					//targetObject.GetComponent<Rigidbody>().angularVelocity += OVRInput.GetLocalControllerAngularVelocity(OVRInput.Controller.RTrackedRemote);
+					targetRb.transform.SetParent(null);
+					targetRb.isKinematic = false;
+					if(throwingObjects){
+						Vector3 currPos = targetRb.transform.position;
+						targetRb.velocity = (currPos - prevPos) / Time.deltaTime * velocityMultiplier;
+					}else{
+						targetRb.transform.localPosition = startPickupPos;
+						targetRb.transform.localRotation = startPickupRot;
+						targetRb.velocity = Vector3.zero;
+					}
+					pointerLine.enabled = true;
 				}
 				if(OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger)){
 					//track velocity
-					Vector3 currPos = targetObject.transform.position;
+					Vector3 currPos = targetRb.gameObject.transform.position;
 					prevPos = currPos;
 				}
 			}
@@ -65,10 +85,10 @@ public class ControllerControl : MonoBehaviour {
         int layerMask = (1 << 8);
         RaycastHit hit;
         if(Physics.Raycast(controller.position, forward, out hit, pointerRange, layerMask)){
-			targetObject = hit.collider.gameObject;
+			targetRb = hit.collider.attachedRigidbody;
 			lineLength = hit.distance;
         }else{
-			targetObject = null;
+			targetRb = null;
 			lineLength = pointerRange;
 		}
 	}
