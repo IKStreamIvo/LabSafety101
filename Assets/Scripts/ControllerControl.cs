@@ -34,8 +34,6 @@ public class ControllerControl : MonoBehaviour {
 				if(OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)){
 					targetRb.transform.SetParent(controller);
 
-					targetRb = targetRb.gameObject.GetComponent<Rigidbody>();
-					if(targetRb == null) targetRb.gameObject.GetComponentInParent<Rigidbody>();
 					targetRb.isKinematic = true;
 					
 					startPickupPos = targetRb.transform.position;
