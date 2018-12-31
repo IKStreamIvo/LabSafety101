@@ -29,6 +29,7 @@ public class PCControl : MonoBehaviour {
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
 	}
+	
 	private void Update (){
 		MouseRotation();
 		CheckPointer();

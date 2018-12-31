@@ -6,88 +6,77 @@ using TMPro;
 
 public class ControllerControl : MonoBehaviour {
 
-	public Transform controller;
-	public LineRenderer pointerLine;
-	public float pointerRange;
-	public float velocityMultiplier = 5f;
+    [SerializeField] private Transform controller;
+    [SerializeField] private LineRenderer pointerLine;
+    [SerializeField] private float pointerRange;
     public Vector3 holdObjectOffset;
-	public bool throwingObjects;
-
-	private Vector3 forward;
-	private float lineLength;
-	private GameObject targetObject;
-	private Rigidbody targetRb;
-	private Vector3 prevPos; 
-	private Vector3 startPickupPos;
-    private Quaternion startPickupRot;
-
-	public TMP_Text dbgVelocity;
-	public TMP_Text dbgAngularVelocity;
+    private PickupObject targetPickup;
+    private PickupObject heldPickup;
+    private PlacementArea targetArea;
+    private Vector3 forward;
+    private float lineLength;
 
     void Start () {
-		forward = controller.TransformDirection(Vector3.forward);
 	}
 	
-	void Update () {
+	private void Update (){
 		if (OVRInput.IsControllerConnected(OVRInput.Controller.RTrackedRemote)){
-			if(targetRb != null){
+            UpdatePointer();
+            CheckPointer();
+
+			if(targetPickup != null){
 				if(OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)){
-					targetRb.transform.SetParent(controller);
-
-					targetRb.isKinematic = true;
-					
-					startPickupPos = targetRb.transform.position;
-					startPickupRot = targetRb.transform.rotation;
-					targetRb.transform.localPosition = holdObjectOffset;
-					targetRb.transform.localEulerAngles = Vector3.zero;
-					pointerLine.enabled = false;
-				}else if(OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger)){
-					targetRb.transform.SetParent(null);
-					targetRb.isKinematic = false;
-					if(throwingObjects){
-						Vector3 currPos = targetRb.transform.position;
-						targetRb.velocity = (currPos - prevPos) / Time.deltaTime * velocityMultiplier;
-					}else{
-						targetRb.transform.localPosition = startPickupPos;
-						targetRb.transform.localRotation = startPickupRot;
-						targetRb.velocity = Vector3.zero;
-					}
-					pointerLine.enabled = true;
-				}
-				if(OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger)){
-					//track velocity
-					Vector3 currPos = targetRb.gameObject.transform.position;
-					prevPos = currPos;
-				}
+					heldPickup = targetPickup;
+					heldPickup.Pickup(controller.transform, holdObjectOffset);
+					GameController.Highlight(heldPickup.type, true);
+                    pointerLine.enabled = false;
+                }
 			}
-			if(!OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger)){
-				CheckPointer();
+			if(heldPickup != null){
+				if(OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger)){
+					heldPickup.Release(targetArea);
+					GameController.Highlight(heldPickup.type, false);
+					heldPickup = null;
+                    pointerLine.enabled = true;
+                }
 			}
-			UpdatePointer();
-			DebugText();
 		}
-	}
-
-    private void DebugText(){
-		dbgVelocity.SetText(OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RTrackedRemote).ToString());
-		dbgVelocity.SetText(OVRInput.GetLocalControllerAngularVelocity(OVRInput.Controller.RTrackedRemote).ToString());
-    }
-
-    private void UpdatePointer(){
-		forward = controller.TransformDirection(Vector3.forward);
-		pointerLine.SetPosition(0, controller.position);
-		pointerLine.SetPosition(1, controller.position + forward * lineLength);
 	}
 
 	private void CheckPointer(){
-        int layerMask = (1 << 8);
-        RaycastHit hit;
-        if(Physics.Raycast(controller.position, forward, out hit, pointerRange, layerMask)){
-			targetRb = hit.collider.attachedRigidbody;
-			lineLength = hit.distance;
-        }else{
-			targetRb = null;
-			lineLength = pointerRange;
+		if(heldPickup == null){ //interactables
+			int layerMask = (1 << 8);
+			RaycastHit hit;
+            Ray ray = new Ray(controller.transform.position, forward);
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)){
+                lineLength = hit.distance;
+                targetPickup = hit.collider.attachedRigidbody.GetComponent<PickupObject>();
+			}else{
+				targetPickup = null;
+                lineLength = pointerRange;
+            }
 		}
+		
+		if(heldPickup != null){ //placement areas
+			int layerMask = (1 << 9);
+			RaycastHit hit;
+            Ray ray = new Ray(controller.transform.position, forward);
+			if(Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)){
+				PlacementArea area = hit.collider.GetComponent<PlacementArea>();
+				if(area.TargetHit(heldPickup.type)){
+					targetArea = area;
+				}else{
+					targetArea = null;
+				}
+			}else{
+				targetArea = null;
+			}
+		}
+	}
+
+	private void UpdatePointer(){
+		forward = controller.TransformDirection(Vector3.forward);
+		pointerLine.SetPosition(0, controller.position);
+		pointerLine.SetPosition(1, controller.position + forward * lineLength);
 	}
 }
