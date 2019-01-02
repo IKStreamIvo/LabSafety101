@@ -27,31 +27,35 @@ public class PCControl : MonoBehaviour {
 	private PlacementArea targetArea;
 
     private void Start() {
-        if (lockCursor)
-        {
+        if (lockCursor) {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
 	}
 	
-	private void Update (){
+	private void Update() {
 		MouseRotation();
 		CheckPointer();
 
-		if(targetPickup != null){
-			if(Input.GetMouseButtonDown(0)){
+        if(heldPickup != null) {
+            if(Input.GetMouseButtonUp(0)) {
+                heldPickup.Release(targetArea);
+                GameController.Highlight(heldPickup.type, false);
+                heldPickup = null;
+            }
+        }else if(targetPickup != null) {
+			if(Input.GetMouseButtonDown(0)) {
 				heldPickup = targetPickup;
 				heldPickup.Pickup(camera.transform, holdObjectOffset);
 				GameController.Highlight(heldPickup.type, true);
 			}
-		}
-		if(heldPickup != null){
-			if(Input.GetMouseButtonUp(0)){
-				heldPickup.Release(targetArea);
-				GameController.Highlight(heldPickup.type, false);
-				heldPickup = null;
-			}
-		}
+            if(targetPickup.currentArea is CraftingGridSlot){
+                if(Input.GetMouseButtonDown(1)) {
+
+                }
+            }
+        }
+		
 	}
 
 	private void CheckPointer(){

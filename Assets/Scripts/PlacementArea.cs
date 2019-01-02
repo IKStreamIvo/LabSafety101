@@ -10,23 +10,33 @@ public class PlacementArea : MonoBehaviour {
     private Color defaultColor;
     private bool targeted;
     private bool prevTargetState;
+    private PickupObject item;
+    public Color sqrDefaultColor { get; private set; }
+    [SerializeField] public Color sqrOcupiedColor;
+    public SpriteRenderer sqrRenderer { get; private set; }
 
     public virtual void Start() {
         GameController.OnHighlighted += Highlight;
 
         defaultColor = highlightObject.material.color;
+        sqrRenderer = GetComponentInChildren<SpriteRenderer>();
+        sqrDefaultColor = sqrRenderer.color;
     }
 
     public virtual void PlaceObject(PickupObject target){
+        item = target;
         target.transform.SetParent(transform);
         target.transform.localPosition = placePosition + new Vector3(0f, -target.bounds.center.y / 2f, 0f);
         target.transform.localRotation = target.originalRotation;
         ocupied = true;
         Highlight(false);
+        sqrRenderer.color = sqrOcupiedColor;
     }
 
     public virtual void RemoveObject(PickupObject target){
         ocupied = false;
+        item = null;
+        sqrRenderer.color = sqrDefaultColor;
         //Highlight(true);
     }
 
@@ -44,9 +54,9 @@ public class PlacementArea : MonoBehaviour {
         highlightObject.enabled = state;
     }
 
-    private void Update() {
+    public virtual void Update() {
         if(highlightObject.enabled){
-            if(targeted ){
+            if(targeted){
                 Material mat = highlightObject.material;
                 mat.color = targetedColor;
                 highlightObject.material = mat;

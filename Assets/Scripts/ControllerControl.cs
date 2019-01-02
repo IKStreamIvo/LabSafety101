@@ -24,7 +24,15 @@ public class ControllerControl : MonoBehaviour {
             UpdatePointer();
             CheckPointer();
 
-			if(targetPickup != null){
+            if(heldPickup != null) {
+                if(OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger)) {
+                    heldPickup.Release(targetArea);
+                    GameController.Highlight(heldPickup.type, false);
+                    heldPickup = null;
+                    //pointerLine.enabled = true;
+                    pointerLine.startColor = Color.red;
+                }
+            }else if(targetPickup != null){
 				if(OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)){
 					heldPickup = targetPickup;
 					heldPickup.Pickup(controller.transform, holdObjectOffset);
@@ -32,16 +40,15 @@ public class ControllerControl : MonoBehaviour {
                     //pointerLine.enabled = false;
                     pointerLine.startColor = Color.blue;
                 }
-			}
-			if(heldPickup != null){
-				if(OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger)){
-					heldPickup.Release(targetArea);
-					GameController.Highlight(heldPickup.type, false);
-					heldPickup = null;
-                    //pointerLine.enabled = true;
-                    pointerLine.startColor = Color.red;
+                if(targetPickup.currentArea is CraftingGridSlot) {
+                    CraftingGridSlot craftArea = (CraftingGridSlot)targetPickup.currentArea;
+                    if(craftArea.canCraft) {
+                        if(OVRInput.GetDown(OVRInput.Button.PrimaryTouchpad)) {
+                            craftArea.ActivateCrafting();
+                        }
+                    }
                 }
-			}
+            }
 		}
 	}
 

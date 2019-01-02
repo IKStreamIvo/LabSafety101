@@ -55,11 +55,11 @@ public class CraftingGrid : MonoBehaviour {
 				int down = i + width;
 				if(right < slots.Length){
 					if(usedSlots[right]){
+
 						//Add button
-						Debug.Log("Whoo recipe");
-						Vector3 btnPos = (slot.transform.position + slots[right].transform.position) / 2f + buttonOffset;
+						/*Vector3 btnPos = (slot.transform.position + slots[right].transform.position) / 2f + buttonOffset;
 						GameObject worldButton = Instantiate(worldButtonPrefab, btnPos, Quaternion.identity);
-						WorldButton btn = worldButton.GetComponent<WorldButton>();
+						WorldButton btn = worldButton.GetComponent<WorldButton>();*/
 						//btn.Setup(CraftThing, eventIndex++);
 					}
 				}
@@ -67,8 +67,29 @@ public class CraftingGrid : MonoBehaviour {
 		}
 		return false;
 	}
+    public void CheckRecipe(int target, bool state) {
+        Debug.Log(target);
+        if(target != 0) {
+            if(target % width != 0 && usedSlots[target - 1]) { //check left
+                slots[target - 1].CanCraft(state);
+                slots[target].CanCraft(state);
+            } else {
+                slots[target - 1].CanCraft(false);
+                slots[target].CanCraft(false);
+            }
+        }
+        if(target != width * height-1) {
+            if(usedSlots[target + 1] && (target + 1) % width != 0) { //check right
+                slots[target + 1].CanCraft(state);
+                slots[target].CanCraft(state);
+            } else {
+                slots[target + 1].CanCraft(false);
+                slots[target].CanCraft(false);
+            }
+        }
+    }
 
-	public void CraftThing(int tag){
+    public void CraftThing(int tag){
 		
 	}
 
