@@ -303,15 +303,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 780276451, guid: 050f003e71326744a874d74d23c2c493, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.216
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 780276451, guid: 050f003e71326744a874d74d23c2c493, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.75
+      value: -0.85
       objectReference: {fileID: 0}
     - target: {fileID: 780276451, guid: 050f003e71326744a874d74d23c2c493, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.353
+      value: 2.2
       objectReference: {fileID: 0}
     - target: {fileID: 780276451, guid: 050f003e71326744a874d74d23c2c493, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1528,7 +1528,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &735902030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1712,7 +1712,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1481964239, guid: b451a170d6624aa41842cac806ee469b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.5
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 1481964239, guid: b451a170d6624aa41842cac806ee469b, type: 3}
       propertyPath: m_LocalRotation.x
@@ -2296,7 +2296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1336600899246366, guid: 89244e06e139b324fb5b42f071c31f18, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4987988197214300, guid: 89244e06e139b324fb5b42f071c31f18, type: 3}
       propertyPath: m_LocalPosition.x
