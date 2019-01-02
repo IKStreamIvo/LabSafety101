@@ -10,7 +10,8 @@ public class PickupObject : MonoBehaviour {
 	public new Rigidbody rigidbody {get; private set;}
 	public Vector3 originalPosition {get; private set;}
 	public Quaternion originalRotation {get; private set;}
-	public Bounds bounds {get; private set;}
+    public Vector3 originalScale { get; private set; }
+    public Bounds bounds {get; private set;}
 	public PlacementArea currentArea {get; private set;}
 
 	private void Start() {
@@ -18,8 +19,9 @@ public class PickupObject : MonoBehaviour {
 
 		originalPosition = transform.position;
 		originalRotation = transform.rotation;
-		
-		Collider[] childColls = rigidbody.GetComponentsInChildren<Collider>();
+        originalScale    = transform.localScale;
+
+        Collider[] childColls = rigidbody.GetComponentsInChildren<Collider>();
 		Collider[] rootColls = rigidbody.GetComponents<Collider>();
 		Collider[] colls = childColls.Concat(rootColls).ToArray();
 		bounds = new Bounds (transform.position, Vector3.zero);
@@ -34,6 +36,7 @@ public class PickupObject : MonoBehaviour {
 			transform.SetParent(null);
 			transform.localPosition = originalPosition;
 			transform.localRotation = originalRotation;
+            transform.localScale    = originalScale;
 		}else{
 			target.PlaceObject(this);
 			currentArea = target;
@@ -46,8 +49,9 @@ public class PickupObject : MonoBehaviour {
 		}
 		transform.SetParent(parent);
 		transform.localPosition = holdObjectOffset;
-		transform.localEulerAngles = Vector3.zero;
-	}
+        transform.localRotation = originalRotation;
+        transform.localScale = originalScale;
+    }
 
 
 }

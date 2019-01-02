@@ -17,7 +17,8 @@ public class PCControl : MonoBehaviour {
 	public float maximumY = 60f;
 
 	private float rotationY = 0f;
-	#endregion
+    #endregion
+    public bool lockCursor;
 	public new Camera camera;
 	public float pointerRange;
     public Vector3 holdObjectOffset;
@@ -26,8 +27,11 @@ public class PCControl : MonoBehaviour {
 	private PlacementArea targetArea;
 
     private void Start() {
-		Cursor.lockState = CursorLockMode.Locked;
-		Cursor.visible = false;
+        if (lockCursor)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
 	}
 	
 	private void Update (){

@@ -29,7 +29,8 @@ public class ControllerControl : MonoBehaviour {
 					heldPickup = targetPickup;
 					heldPickup.Pickup(controller.transform, holdObjectOffset);
 					GameController.Highlight(heldPickup.type, true);
-                    pointerLine.enabled = false;
+                    //pointerLine.enabled = false;
+                    pointerLine.startColor = Color.blue;
                 }
 			}
 			if(heldPickup != null){
@@ -37,7 +38,8 @@ public class ControllerControl : MonoBehaviour {
 					heldPickup.Release(targetArea);
 					GameController.Highlight(heldPickup.type, false);
 					heldPickup = null;
-                    pointerLine.enabled = true;
+                    //pointerLine.enabled = true;
+                    pointerLine.startColor = Color.red;
                 }
 			}
 		}
