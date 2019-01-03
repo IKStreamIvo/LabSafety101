@@ -1528,7 +1528,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &735902030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2296,7 +2296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1336600899246366, guid: 89244e06e139b324fb5b42f071c31f18, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4987988197214300, guid: 89244e06e139b324fb5b42f071c31f18, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2345,6 +2345,11 @@ PrefabInstance:
       propertyPath: throwingObjects
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114453190510358512, guid: 89244e06e139b324fb5b42f071c31f18,
+        type: 3}
+      propertyPath: controller
+      value: 
+      objectReference: {fileID: 1243655775}
     - target: {fileID: 120188370743547574, guid: 89244e06e139b324fb5b42f071c31f18,
         type: 3}
       propertyPath: m_Parameters.colorGradient.key0.r
@@ -2476,6 +2481,16 @@ PrefabInstance:
       propertyPath: sqrCraftableColor.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114386950107724042, guid: 4be5fcdc91738f74a86975e9d307597f,
+        type: 3}
+      propertyPath: craftOffset.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114386950107724042, guid: 4be5fcdc91738f74a86975e9d307597f,
+        type: 3}
+      propertyPath: craftActivateMoveSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4352683590585932, guid: 4be5fcdc91738f74a86975e9d307597f, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.55
@@ -2553,6 +2568,16 @@ PrefabInstance:
     - target: {fileID: 114959886267506162, guid: 4be5fcdc91738f74a86975e9d307597f,
         type: 3}
       propertyPath: sqrCraftableColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114959886267506162, guid: 4be5fcdc91738f74a86975e9d307597f,
+        type: 3}
+      propertyPath: craftOffset.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114959886267506162, guid: 4be5fcdc91738f74a86975e9d307597f,
+        type: 3}
+      propertyPath: craftActivateMoveSpeed
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4527708199023722, guid: 4be5fcdc91738f74a86975e9d307597f, type: 3}
@@ -2646,6 +2671,16 @@ PrefabInstance:
       propertyPath: sqrCraftableColor.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114376793268708106, guid: 4be5fcdc91738f74a86975e9d307597f,
+        type: 3}
+      propertyPath: craftOffset.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114376793268708106, guid: 4be5fcdc91738f74a86975e9d307597f,
+        type: 3}
+      propertyPath: craftActivateMoveSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 114350473636445032, guid: 4be5fcdc91738f74a86975e9d307597f,
         type: 3}
       propertyPath: highlightObject
@@ -2719,6 +2754,16 @@ PrefabInstance:
     - target: {fileID: 114350473636445032, guid: 4be5fcdc91738f74a86975e9d307597f,
         type: 3}
       propertyPath: sqrCraftableColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114350473636445032, guid: 4be5fcdc91738f74a86975e9d307597f,
+        type: 3}
+      propertyPath: craftOffset.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114350473636445032, guid: 4be5fcdc91738f74a86975e9d307597f,
+        type: 3}
+      propertyPath: craftActivateMoveSpeed
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114221476889190008, guid: 4be5fcdc91738f74a86975e9d307597f,
@@ -2796,6 +2841,16 @@ PrefabInstance:
       propertyPath: sqrCraftableColor.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114221476889190008, guid: 4be5fcdc91738f74a86975e9d307597f,
+        type: 3}
+      propertyPath: craftOffset.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221476889190008, guid: 4be5fcdc91738f74a86975e9d307597f,
+        type: 3}
+      propertyPath: craftActivateMoveSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 114869909445478140, guid: 4be5fcdc91738f74a86975e9d307597f,
         type: 3}
       propertyPath: highlightObject
@@ -2869,6 +2924,16 @@ PrefabInstance:
     - target: {fileID: 114869909445478140, guid: 4be5fcdc91738f74a86975e9d307597f,
         type: 3}
       propertyPath: sqrCraftableColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114869909445478140, guid: 4be5fcdc91738f74a86975e9d307597f,
+        type: 3}
+      propertyPath: craftOffset.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114869909445478140, guid: 4be5fcdc91738f74a86975e9d307597f,
+        type: 3}
+      propertyPath: craftActivateMoveSpeed
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4853920637920770, guid: 4be5fcdc91738f74a86975e9d307597f, type: 3}
@@ -3049,6 +3114,16 @@ PrefabInstance:
       propertyPath: sqrCraftableColor.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114845875905918584, guid: 4be5fcdc91738f74a86975e9d307597f,
+        type: 3}
+      propertyPath: craftOffset.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114845875905918584, guid: 4be5fcdc91738f74a86975e9d307597f,
+        type: 3}
+      propertyPath: craftActivateMoveSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 114282579030955724, guid: 4be5fcdc91738f74a86975e9d307597f,
         type: 3}
       propertyPath: highlightObject
@@ -3124,6 +3199,16 @@ PrefabInstance:
       propertyPath: sqrCraftableColor.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114282579030955724, guid: 4be5fcdc91738f74a86975e9d307597f,
+        type: 3}
+      propertyPath: craftOffset.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114282579030955724, guid: 4be5fcdc91738f74a86975e9d307597f,
+        type: 3}
+      propertyPath: craftActivateMoveSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 114864678869897508, guid: 4be5fcdc91738f74a86975e9d307597f,
         type: 3}
       propertyPath: highlightObject
@@ -3197,6 +3282,16 @@ PrefabInstance:
     - target: {fileID: 114864678869897508, guid: 4be5fcdc91738f74a86975e9d307597f,
         type: 3}
       propertyPath: sqrCraftableColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114864678869897508, guid: 4be5fcdc91738f74a86975e9d307597f,
+        type: 3}
+      propertyPath: craftOffset.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114864678869897508, guid: 4be5fcdc91738f74a86975e9d307597f,
+        type: 3}
+      propertyPath: craftActivateMoveSpeed
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4805709201995256, guid: 4be5fcdc91738f74a86975e9d307597f, type: 3}
@@ -3382,6 +3477,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+--- !u!4 &1243655775 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4047696902574346, guid: 89244e06e139b324fb5b42f071c31f18,
+    type: 3}
+  m_PrefabInstance: {fileID: 1083700772}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1277304816
 PrefabInstance:
   m_ObjectHideFlags: 0

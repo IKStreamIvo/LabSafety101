@@ -31,6 +31,15 @@ public class PickupObject : MonoBehaviour {
 		
 	}
 
+    public void CraftingController(Vector3 offset = new Vector3()) {
+        /*if(GameController.VRMode) {
+            Vector3 newRot = GameController.vrController.transform.position - offset;
+            transform.rotation = Quaternion.Euler(newRot);
+        } else {
+            transform.Rotate(0, Input.GetAxis("Mouse X") * sensitivityX, 0);
+        }*/
+    }
+
 	public void Release(PlacementArea target){
 		if(target == null){
 			transform.SetParent(null);

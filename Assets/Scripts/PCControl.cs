@@ -25,6 +25,7 @@ public class PCControl : MonoBehaviour {
 	private PickupObject targetPickup;
 	private PickupObject heldPickup;
 	private PlacementArea targetArea;
+    private CraftingGridSlot currCraftArea;
 
     private void Start() {
         if (lockCursor) {
@@ -34,8 +35,12 @@ public class PCControl : MonoBehaviour {
 	}
 	
 	private void Update() {
-		MouseRotation();
-		CheckPointer();
+        if(!Input.GetMouseButton(1)) {
+            MouseRotation();
+        }
+        if(targetPickup == null || !Input.GetMouseButton(1)) {
+            CheckPointer();
+        }
 
         if(heldPickup != null) {
             if(Input.GetMouseButtonUp(0)) {
@@ -49,10 +54,26 @@ public class PCControl : MonoBehaviour {
 				heldPickup.Pickup(camera.transform, holdObjectOffset);
 				GameController.Highlight(heldPickup.type, true);
 			}
-            if(targetPickup.currentArea is CraftingGridSlot){
-                if(Input.GetMouseButtonDown(1)) {
-
+            if(targetPickup.currentArea is CraftingGridSlot) {
+                currCraftArea = (CraftingGridSlot)targetPickup.currentArea;
+                if(currCraftArea.canCraft) {
+                    if(Input.GetMouseButtonDown(1)) {
+                        currCraftArea.ActivateCrafting();
+                    } else if(Input.GetMouseButtonUp(1)) {
+                        Debug.Log("Up");
+                        currCraftArea.DeactivateCrafting();
+                    } else if(Input.GetMouseButton(1)) {
+                        targetPickup.transform.Rotate(new Vector3(0f, 0f, -Input.GetAxis("Mouse X") * sensitivityX), Space.Self);
+                    }
                 }
+            } 
+        }
+
+        if(currCraftArea != null) {
+            if(Input.GetMouseButtonUp(1)) {
+                Debug.Log("Up");
+                currCraftArea.DeactivateCrafting();
+                currCraftArea = null;
             }
         }
 		

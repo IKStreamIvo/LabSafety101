@@ -10,7 +10,7 @@ public class PlacementArea : MonoBehaviour {
     private Color defaultColor;
     private bool targeted;
     private bool prevTargetState;
-    private PickupObject item;
+    public PickupObject item { get; private set; }
     public Color sqrDefaultColor { get; private set; }
     [SerializeField] public Color sqrOcupiedColor;
     public SpriteRenderer sqrRenderer { get; private set; }

@@ -3,7 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : MonoBehaviour {
-	public enum PickupType{
+
+    private void Start() {
+        ControllerControl controllerResult = FindObjectOfType<ControllerControl>();
+        if(controllerResult != null) {
+            vrController = controllerResult.controller;
+            VRMode = true;
+        } else {
+            VRMode = false;
+        }
+    }
+
+    #region Controls
+    public static bool VRMode { get; private set; }
+    public static Transform vrController { get; private set; }
+    #endregion 
+
+    #region Pickups
+    public enum PickupType{
 		Default, Craftable
 	} 
 
@@ -15,4 +32,5 @@ public class GameController : MonoBehaviour {
 			OnHighlighted(type, state);
 		}
 	}
+    #endregion
 }

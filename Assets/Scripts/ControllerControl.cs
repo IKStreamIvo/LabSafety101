@@ -6,7 +6,7 @@ using TMPro;
 
 public class ControllerControl : MonoBehaviour {
 
-    [SerializeField] private Transform controller;
+    public Transform controller;
     [SerializeField] private LineRenderer pointerLine;
     [SerializeField] private float pointerRange;
     public Vector3 holdObjectOffset;
@@ -17,7 +17,8 @@ public class ControllerControl : MonoBehaviour {
     private float lineLength;
 
     void Start () {
-	}
+        UpdatePointer();
+    }
 	
 	private void Update (){
 		if (OVRInput.IsControllerConnected(OVRInput.Controller.RTrackedRemote)){
@@ -29,22 +30,22 @@ public class ControllerControl : MonoBehaviour {
                     heldPickup.Release(targetArea);
                     GameController.Highlight(heldPickup.type, false);
                     heldPickup = null;
-                    //pointerLine.enabled = true;
-                    pointerLine.startColor = Color.red;
                 }
-            }else if(targetPickup != null){
+            } else if(targetPickup != null) {
 				if(OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)){
 					heldPickup = targetPickup;
 					heldPickup.Pickup(controller.transform, holdObjectOffset);
 					GameController.Highlight(heldPickup.type, true);
-                    //pointerLine.enabled = false;
-                    pointerLine.startColor = Color.blue;
                 }
                 if(targetPickup.currentArea is CraftingGridSlot) {
                     CraftingGridSlot craftArea = (CraftingGridSlot)targetPickup.currentArea;
                     if(craftArea.canCraft) {
                         if(OVRInput.GetDown(OVRInput.Button.PrimaryTouchpad)) {
                             craftArea.ActivateCrafting();
+                        }else if(OVRInput.GetUp(OVRInput.Button.PrimaryTouchpad)) {
+                            craftArea.DeactivateCrafting();
+                        } else {
+                            targetPickup.transform.Rotate(new Vector3(0, 0, 0), Space.Self);
                         }
                     }
                 }

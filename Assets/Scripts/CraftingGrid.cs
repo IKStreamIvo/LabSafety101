@@ -55,7 +55,6 @@ public class CraftingGrid : MonoBehaviour {
 				int down = i + width;
 				if(right < slots.Length){
 					if(usedSlots[right]){
-
 						//Add button
 						/*Vector3 btnPos = (slot.transform.position + slots[right].transform.position) / 2f + buttonOffset;
 						GameObject worldButton = Instantiate(worldButtonPrefab, btnPos, Quaternion.identity);
@@ -68,25 +67,24 @@ public class CraftingGrid : MonoBehaviour {
 		return false;
 	}
     public void CheckRecipe(int target, bool state) {
-        Debug.Log(target);
+        bool foundAtLeastOne = false;
         if(target != 0) {
             if(target % width != 0 && usedSlots[target - 1]) { //check left
                 slots[target - 1].CanCraft(state);
-                slots[target].CanCraft(state);
+                foundAtLeastOne = state;
             } else {
                 slots[target - 1].CanCraft(false);
-                slots[target].CanCraft(false);
             }
         }
         if(target != width * height-1) {
             if(usedSlots[target + 1] && (target + 1) % width != 0) { //check right
                 slots[target + 1].CanCraft(state);
-                slots[target].CanCraft(state);
+                foundAtLeastOne = state;
             } else {
                 slots[target + 1].CanCraft(false);
-                slots[target].CanCraft(false);
             }
         }
+        slots[target].CanCraft(foundAtLeastOne);
     }
 
     public void CraftThing(int tag){

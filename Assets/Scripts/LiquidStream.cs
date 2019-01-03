@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LiquidStream : MonoBehaviour
 {
-    public GameObject beaker;
+    public Rigidbody beaker;
     private ParticleSystem ps;
     public float emissionValue = 5.0f;
     private float _stream = 150f;
@@ -31,13 +31,13 @@ public class LiquidStream : MonoBehaviour
 
     void OnParticleCollision(GameObject other)
     {
-        if(!beaker.name.Equals(other.transform.parent.name))
-        {
+        Debug.Log(other);
+        Rigidbody otherRb = other.GetComponent<Rigidbody>();
+        if(!beaker == otherRb) {
+            Debug.Log(other);
             Bottle parentBottle = beaker.GetComponent<Bottle>();
-
-            GameObject otherParent = other.transform.parent.gameObject;
-            Bottle otherBottle = otherParent.GetComponent<Bottle>();
-
+            
+            Bottle otherBottle = otherRb.GetComponent<Bottle>();
             if (parentBottle != null && otherBottle != null)
             {
                 _countDown -= Time.deltaTime;
