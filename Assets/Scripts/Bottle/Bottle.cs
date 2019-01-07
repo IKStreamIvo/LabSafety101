@@ -2,48 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Project
+
 public class Bottle : MonoBehaviour
 {
+    // The content of bottle
     public float content = 1000f;
     public float maxContent = 2000f;
     private float stream = 0;
     public float maxStream = 25f;
     private float liquid = 0f;
-    private float _countDown = 0f;
 
+    // What you need to change content or stream
+    private float _countDown = 0f;
     public float speed = 10f;
 
-    public bool move = false;
-    private bool moveLeft = false;
-
-    public bool rotate = false;
-
+    // Stream and liquid
     public LiquidStream currentParticles;
     public InsideGlass sizeLiquid;
 
     void Update()
     {
-        if (move)
-        {
-            float y = 0;
-            if (moveLeft)
-                y = 1;
-            else
-                y = -1;
-
-            transform.Translate(new Vector3(0, y, 0) * Time.deltaTime * speed);
-
-            if (transform.position.x < -10 || transform.position.x > 10)
-                moveLeft = !moveLeft;
-        }
-
-        if (rotate)
-        {
-            transform.Rotate(new Vector3(0, 0, 1), speed * Time.deltaTime);
-        }
-
+        // How wide is stream at the current angle?
         stream = CheckValue(transform.rotation.eulerAngles.z);
 
+        // How wide is stream with the content?
         _countDown -= Time.deltaTime;
         if(_countDown <= 0)
         {
@@ -59,18 +42,17 @@ public class Bottle : MonoBehaviour
             _countDown = 0.1f;
         }
 
+        // Stream is empty if there is no content
         if (liquid == 0)
             stream = 0;
 
+        // Change stream
         currentParticles.ChangeValue(stream, liquid);
+        // Change content
         sizeLiquid.SizeLiquid(maxContent, content);
     }
 
-    private void OnMouseDown()
-    {
-        //rotate = !rotate;
-    }
-
+    // Change angle to stream
     private float CheckValue(float angle)
     {
         if(angle <= 0)
@@ -91,6 +73,7 @@ public class Bottle : MonoBehaviour
         return stream;
     }
 
+    // Add content to bottle
     public void GainLiquid(float liquid)
     {
         if(content < maxContent)
