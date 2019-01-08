@@ -51,15 +51,15 @@ public class LiquidStream : MonoBehaviour
     // When stream hits something
     void OnParticleCollision(GameObject other)
     {
-        Debug.Log(other);
+        //Debug.Log(other);
         Rigidbody otherRb = other.GetComponent<Rigidbody>();
 
         // If the other is not this bottle
         if(beaker.GetComponent<Rigidbody>() != otherRb) {
-
+            Debug.Log(otherRb);
             // Close stream
             var collision = ps.collision;
-            //collision.lifetimeLoss = 1;
+            collision.lifetimeLoss = 1;
 
             // Get codes of the bottles
             Bottle parentBottle = beaker.GetComponent<Bottle>();

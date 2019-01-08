@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 386451641}
   - component: {fileID: 386451640}
   - component: {fileID: 386451639}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: GlassLiquid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 386451637}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 0, z: 1}
   m_Children: []
   m_Father: {fileID: 4213618908599346661}
   m_RootOrder: 0
@@ -89,7 +89,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.4
+  m_Radius: 0.55
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -105,7 +105,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b3782f99c8b6b4da01e1730c4e90d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSize: 1
+  maxSize: 0.75
+  changeColor: 0
+  start: {r: 0.8867924, g: 0.17150229, b: 0.17150229, a: 0}
+  end: {r: 0.30200827, g: 0.17928976, b: 0.745283, a: 0}
+  liquidStream: {fileID: 6101367886947546184}
 --- !u!1 &780276449
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,7 +140,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1832312595}
+  - {fileID: 6307781328738043192}
   - {fileID: 4213618908599346661}
   - {fileID: 7435295592082470386}
   m_Father: {fileID: 0}
@@ -154,13 +158,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 283a080c290cdeb4fa3aeca3eb48b7b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: 750
-  maxContent: 1500
+  content: 5
+  maxContent: 2000
   maxStream: 25
   speed: 10
-  move: 0
-  rotate: 0
-  currentParticles: {fileID: 1832312596}
+  currentParticles: {fileID: 6101367886947546184}
   sizeLiquid: {fileID: 386451639}
 --- !u!54 &610093012
 Rigidbody:
@@ -191,7 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
---- !u!1 &1832312594
+--- !u!1 &4367008880935127012
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -199,38 +201,69 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1832312595}
-  - component: {fileID: 1832312598}
-  - component: {fileID: 1832312597}
-  - component: {fileID: 1832312596}
-  m_Layer: 8
+  - component: {fileID: 4213618908599346661}
+  m_Layer: 10
+  m_Name: LiquidParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4213618908599346661
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4367008880935127012}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.14, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_Children:
+  - {fileID: 386451638}
+  m_Father: {fileID: 780276451}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5949797953160911227
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6307781328738043192}
+  - component: {fileID: 1253255591869054276}
+  - component: {fileID: 350778428981530297}
+  - component: {fileID: 6101367886947546184}
+  m_Layer: 10
   m_Name: Liquid
   m_TagString: Liquid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1832312595
+--- !u!4 &6307781328738043192
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1832312594}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.155, y: 0.188, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 5949797953160911227}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.173, y: 0.202, z: 0}
+  m_LocalScale: {x: 0.049999997, y: 0.049999997, z: 0.049999997}
   m_Children: []
   m_Father: {fileID: 780276451}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!198 &1832312598
+--- !u!198 &1253255591869054276
 ParticleSystem:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1832312594}
+  m_GameObject: {fileID: 5949797953160911227}
   serializedVersion: 6
   lengthInSec: 5
   simulationSpeed: 1
@@ -3873,7 +3906,7 @@ ParticleSystem:
     m_EnergyLossOnCollision:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.5
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -3925,7 +3958,7 @@ ParticleSystem:
         m_RotationOrder: 4
     minKillSpeed: 0
     maxKillSpeed: 1000
-    radiusScale: 1
+    radiusScale: 0.01
     collidesWith:
       serializedVersion: 2
       m_Bits: 1024
@@ -4886,14 +4919,14 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!199 &1832312597
+--- !u!199 &350778428981530297
 ParticleSystemRenderer:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1832312594}
+  m_GameObject: {fileID: 5949797953160911227}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -4904,8 +4937,8 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 5df8f4233f2b59042be5c5c3379dbc22, type: 2}
+  - {fileID: 2100000, guid: 5df8f4233f2b59042be5c5c3379dbc22, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4948,51 +4981,20 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &1832312596
+--- !u!114 &6101367886947546184
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1832312594}
+  m_GameObject: {fileID: 5949797953160911227}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c8bf4bae490e654a91f5e2d51214adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  beaker: {fileID: 7435295592082696658}
+  beaker: {fileID: 0}
   emissionValue: 5
---- !u!1 &4367008880935127012
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4213618908599346661}
-  m_Layer: 8
-  m_Name: LiquidParent
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4213618908599346661
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4367008880935127012}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.04, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
-  m_Children:
-  - {fileID: 386451638}
-  m_Father: {fileID: 780276451}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &5839122984159150957
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5004,7 +5006,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 812ef159541e206408e7869ea99a1b21, type: 3}
 --- !u!1001 &7435295592082599794
@@ -5016,7 +5018,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 812ef159541e206408e7869ea99a1b21, type: 3}
       propertyPath: m_Name
-      value: Beaker (1)
+      value: Beaker
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 812ef159541e206408e7869ea99a1b21, type: 3}
       propertyPath: m_Layer
