@@ -59,7 +59,7 @@ public class LiquidStream : MonoBehaviour
             Debug.Log(otherRb);
             // Close stream
             var collision = ps.collision;
-            collision.lifetimeLoss = 1;
+            collision.lifetimeLoss = .8f;
 
             // Get codes of the bottles
             Bottle parentBottle = beaker.GetComponent<Bottle>();
