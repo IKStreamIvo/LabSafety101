@@ -74,9 +74,11 @@ public class Bottle : MonoBehaviour
     }
 
     // Add content to bottle
-    public void GainLiquid(float liquid)
+    public void GainLiquid(float liquid, Color clr)
     {
         if(content < maxContent)
             content += liquid;
+
+        sizeLiquid.ChangeColor(clr);
     }
 }

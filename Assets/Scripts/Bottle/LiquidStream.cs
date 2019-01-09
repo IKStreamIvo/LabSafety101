@@ -71,7 +71,7 @@ public class LiquidStream : MonoBehaviour
                 _countDown -= Time.deltaTime;
                 if (_countDown <= 0)
                 {
-                    otherBottle.GainLiquid(_liquid);
+                    otherBottle.GainLiquid(_liquid, currentColor);
                     _countDown = 0.1f;
                 }
             }
