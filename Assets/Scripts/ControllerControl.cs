@@ -13,14 +13,18 @@ public class ControllerControl : MonoBehaviour {
     private PickupObject targetPickup;
     private PickupObject heldPickup;
     private PlacementArea targetArea;
+    private CraftingGridSlot currCraftArea;
     private Vector3 forward;
     private float lineLength;
+    private Vector3 controllerOrientation;
+    [SerializeField] private TextMeshPro debugText;
 
     void Start () {
         UpdatePointer();
     }
 	
 	private void Update (){
+        string debugTextConstructor = "";
 		if (OVRInput.IsControllerConnected(OVRInput.Controller.RTrackedRemote)){
             UpdatePointer();
             CheckPointer();
@@ -38,20 +42,34 @@ public class ControllerControl : MonoBehaviour {
 					GameController.Highlight(heldPickup.type, true);
                 }
                 if(targetPickup.currentArea is CraftingGridSlot) {
-                    CraftingGridSlot craftArea = (CraftingGridSlot)targetPickup.currentArea;
-                    if(craftArea.canCraft) {
+                    currCraftArea = (CraftingGridSlot)targetPickup.currentArea;
+                    if(currCraftArea.canCraft) {
                         if(OVRInput.GetDown(OVRInput.Button.PrimaryTouchpad)) {
-                            craftArea.ActivateCrafting();
+                            currCraftArea.ActivateCrafting();
                         }else if(OVRInput.GetUp(OVRInput.Button.PrimaryTouchpad)) {
-                            craftArea.DeactivateCrafting();
-                        } else {
-                            targetPickup.transform.Rotate(new Vector3(0, 0, 0), Space.Self);
-                        }
+                            currCraftArea.DeactivateCrafting();
+                        } //else 
                     }
                 }
             }
-		}
-	}
+
+            if(currCraftArea != null) {
+                if(OVRInput.Get(OVRInput.Button.PrimaryTouchpad)) {
+                    Vector3 currentOrientation = controller.rotation.eulerAngles;
+                    Vector3 difference = (currentOrientation - controllerOrientation);
+                    currCraftArea.item.transform.Rotate(new Vector3(0, 0, difference.z), Space.Self);
+                }
+                if(OVRInput.GetUp(OVRInput.Button.PrimaryTouchpad)) {
+                    currCraftArea.DeactivateCrafting();
+                    currCraftArea = null;
+                }
+            }
+
+            controllerOrientation = controller.rotation.eulerAngles;            
+        }
+
+        debugText.SetText(debugTextConstructor);
+    }
 
 	private void CheckPointer(){
 		if(heldPickup == null){ //interactables

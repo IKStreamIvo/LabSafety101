@@ -60,18 +60,17 @@ public class PCControl : MonoBehaviour {
                     if(Input.GetMouseButtonDown(1)) {
                         currCraftArea.ActivateCrafting();
                     } else if(Input.GetMouseButtonUp(1)) {
-                        Debug.Log("Up");
                         currCraftArea.DeactivateCrafting();
-                    } else if(Input.GetMouseButton(1)) {
-                        targetPickup.transform.Rotate(new Vector3(0f, 0f, -Input.GetAxis("Mouse X") * sensitivityX), Space.Self);
                     }
                 }
             } 
         }
 
         if(currCraftArea != null) {
+            if(Input.GetMouseButton(1)) {
+                currCraftArea.item.transform.Rotate(new Vector3(0f, 0f, -Input.GetAxis("Mouse X") * sensitivityX), Space.Self);
+            }
             if(Input.GetMouseButtonUp(1)) {
-                Debug.Log("Up");
                 currCraftArea.DeactivateCrafting();
                 currCraftArea = null;
             }
