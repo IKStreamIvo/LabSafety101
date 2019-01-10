@@ -9,6 +9,7 @@ public class CraftingGridSlot : PlacementArea {
     [SerializeField] private float craftActivateMoveSpeed;
     private Vector3 targetPos;
     private Vector3 controllerOffset;
+    private bool isMoving;
 
     public override void Start(){
         base.Start();
@@ -21,11 +22,17 @@ public class CraftingGridSlot : PlacementArea {
             if(isCrafting) {
                 item.CraftingController(controllerOffset);
                 if(item.transform.position != targetPos) {
+                    isMoving = true;
                     item.transform.position = Vector3.MoveTowards(item.transform.position, targetPos, Time.deltaTime * craftActivateMoveSpeed);
+                } else {
+                    isMoving = false;
                 }
             } else {
                 if(item.transform.position != targetPos) {
+                    isMoving = true;
                     item.transform.position = Vector3.MoveTowards(item.transform.position, targetPos, Time.deltaTime * craftActivateMoveSpeed);
+                } else {
+                    isMoving = false;
                 }
             }
         }
@@ -46,6 +53,7 @@ public class CraftingGridSlot : PlacementArea {
     }
 
     public void ActivateCrafting() {
+        if(isMoving) return;
         if(!canCraft) return;
         isCrafting = true;
         targetPos = item.gameObject.transform.position + new Vector3(0f, -item.bounds.center.y / 2f, 0f);
@@ -54,13 +62,14 @@ public class CraftingGridSlot : PlacementArea {
         }
     }
     public void DeactivateCrafting() {
+        if(!isCrafting) return;
         isCrafting = false;
         targetPos = item.transform.position - new Vector3(0f, -item.bounds.center.y / 2f, 0f);
         item.transform.localRotation = item.originalRotation;
     }
 
     public void CanCraft(bool state) {
-        if(ocupied) {
+        if(ocupied && !isMoving) {
             canCraft = state;
             if(state) {
                 sqrRenderer.color = sqrCraftableColor;
