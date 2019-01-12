@@ -14,15 +14,20 @@ public class InsideGlass : MonoBehaviour
     public bool changeColor = false;
     private Renderer _rendLiquid;
     private Renderer _rendStream;
-    public Color start, end;
+    public Color start;
+    public ph phValue;
+    private ph _lastAddedPh;
     private float _speed = 2f;
     private float _timer = 0f;
     public LiquidStream liquidStream;
+    private phValues phList = new phValues();
 
     void Start()
     {
-        // Set start color
+        // Set start ph value
+        phValue = phList.RandomPHValue();
         _rendLiquid = GetComponent<Renderer>();
+        start = phValue.GetColor();
         _rendLiquid.material.color = start;
     }
 
@@ -32,7 +37,7 @@ public class InsideGlass : MonoBehaviour
         if (changeColor)
         {
             // Slowly go to other color
-            Color newColor = Color.Lerp(start, end, _timer);
+            Color newColor = Color.Lerp(start, phValue.GetColor(), _timer);
             _rendLiquid.material.color = newColor;
             liquidStream.ChangeColor(newColor);
 
@@ -46,18 +51,23 @@ public class InsideGlass : MonoBehaviour
             // When the color has changed to end color
             if (_timer >= 1f)
             {
-                start = end;
+                liquidStream.ChangePH(phValue);
+                start = phValue.GetColor();
                 _timer = 0f;
                 changeColor = false;
             }
         }
     }
 
-    // Start to change the color to clr
-    public void ChangeColor(Color clr)
+    // Change the ph value
+    public void ChangePH(ph addedphValue)
     {
-        end = clr;
-        changeColor = true;
+        if (_lastAddedPh != addedphValue)
+        {
+            phValue = phList.MixingValues(phValue, addedphValue);
+            changeColor = true;
+            _lastAddedPh = addedphValue;
+        }
     }
 
     // Change to new size

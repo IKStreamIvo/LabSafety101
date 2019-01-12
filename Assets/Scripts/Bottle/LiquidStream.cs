@@ -18,7 +18,7 @@ public class LiquidStream : MonoBehaviour
 
     // Color of stream
     private Renderer rend;
-    private Color currentColor;
+    private ph _phValue;
 
     void Start()
     {
@@ -41,11 +41,15 @@ public class LiquidStream : MonoBehaviour
         _liquid = liquid;
     }
 
-    // Change color of stream
     public void ChangeColor(Color clr)
     {
-        currentColor = clr;
         rend.material.color = clr;
+    }
+
+    // Change color of stream
+    public void ChangePH(ph phValue)
+    {
+        _phValue = phValue;
     }
 
     // When stream hits something
@@ -71,7 +75,7 @@ public class LiquidStream : MonoBehaviour
                 _countDown -= Time.deltaTime;
                 if (_countDown <= 0)
                 {
-                    otherBottle.GainLiquid(_liquid, currentColor);
+                    otherBottle.GainLiquid(_liquid, _phValue);
                     _countDown = 0.1f;
                 }
             }
