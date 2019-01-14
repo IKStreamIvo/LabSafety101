@@ -22,6 +22,8 @@ public class InsideGlass : MonoBehaviour
     public LiquidStream liquidStream;
     private phValues phList = new phValues();
 
+    [SerializeField] private BoilerEffect boiling;
+
     void Start()
     {
         // Set start ph value
@@ -40,6 +42,7 @@ public class InsideGlass : MonoBehaviour
             Color newColor = Color.Lerp(start, phValue.GetColor(), _timer);
             _rendLiquid.material.color = newColor;
             liquidStream.ChangeColor(newColor);
+            boiling.ChangeColor(newColor);
 
             // Current color is start color
             start = newColor;

@@ -58,9 +58,7 @@ public class phValues
         int two = phTwo.GetId();
 
         int index = Mathf.RoundToInt((one + two) / 2);
-        Debug.Log("One " + phOne.ToString());
-        Debug.Log("Two " + phTwo.ToString());
-        Debug.Log("New " + valueList[index].ToString());
+
         return valueList[index];
     }
 }

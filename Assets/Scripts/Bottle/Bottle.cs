@@ -20,7 +20,7 @@ public class Bottle : MonoBehaviour
     // Stream and liquid
     public LiquidStream currentParticles;
     public InsideGlass sizeLiquid;
-    public GameObject boilerEffect;
+    public BoilerEffect boilerEffect;
 
     void Update()
     {
@@ -81,6 +81,6 @@ public class Bottle : MonoBehaviour
             content += liquid;
 
         sizeLiquid.ChangePH(phValue);
-        boilerEffect.SetActive(true);
+        boilerEffect.StartBoiling();
     }
 }

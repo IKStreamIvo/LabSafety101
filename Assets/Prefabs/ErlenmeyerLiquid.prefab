@@ -33,7 +33,6 @@ Transform:
   - {fileID: 576232022512531688}
   - {fileID: 7030323151454103875}
   - {fileID: 6140172311263963428}
-  - {fileID: 2332621683050353397}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -55,6 +54,7 @@ MonoBehaviour:
   speed: 10
   currentParticles: {fileID: 1548420635857529770}
   sizeLiquid: {fileID: 1752777509}
+  boilerEffect: {fileID: 6552302966539027094}
 --- !u!54 &125557850
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -178,8 +178,8 @@ MonoBehaviour:
   maxSize: 1.1
   changeColor: 1
   start: {r: 0.172549, g: 0.2882836, b: 0.8862745, a: 0}
-  end: {r: 0.3019608, g: 0.18039216, b: 0.74509805, a: 0}
   liquidStream: {fileID: 1548420635857529770}
+  boiling: {fileID: 6552302966539027094}
 --- !u!64 &222608016
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4976,13 +4976,14 @@ GameObject:
   - component: {fileID: 2332621683050353397}
   - component: {fileID: 8018360113980909541}
   - component: {fileID: 4278481145068624589}
+  - component: {fileID: 6552302966539027094}
   m_Layer: 0
-  m_Name: BoilerEffectErlenMeyer
+  m_Name: BoilerEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2332621683050353397
 Transform:
   m_ObjectHideFlags: 0
@@ -4991,11 +4992,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1978525920206401384}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.242, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalPosition: {x: 0, y: 2.45, z: 0}
+  m_LocalScale: {x: 2.5, y: 2.5000014, z: 1.2500007}
   m_Children: []
-  m_Father: {fileID: 1481964239}
-  m_RootOrder: 3
+  m_Father: {fileID: 6140172311263963428}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &8018360113980909541
 ParticleSystem:
@@ -5249,7 +5250,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.17
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -5625,7 +5626,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 25
+    angle: 9.609063
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -5711,7 +5712,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.24836487
+      value: 0.017350426
       mode: 0
       spread: 0
       speed:
@@ -9619,8 +9620,8 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: be032e0095ba02641a891c3a32c1c8e6, type: 2}
+  - {fileID: 2100000, guid: be032e0095ba02641a891c3a32c1c8e6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9663,6 +9664,19 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &6552302966539027094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978525920206401384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd913cc805bbf4645b355939988ceb26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boiling: 0
 --- !u!64 &528197182423505287
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9705,6 +9719,7 @@ Transform:
   m_LocalScale: {x: 0.08, y: 0.16, z: 0.08}
   m_Children:
   - {fileID: 1752777508}
+  - {fileID: 2332621683050353397}
   m_Father: {fileID: 1481964239}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

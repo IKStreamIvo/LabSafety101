@@ -60,7 +60,6 @@ public class LiquidStream : MonoBehaviour
 
         // If the other is not this bottle
         if(beaker.GetComponent<Rigidbody>() != otherRb) {
-            Debug.Log(otherRb);
             // Close stream
             var collision = ps.collision;
             collision.lifetimeLoss = .8f;
