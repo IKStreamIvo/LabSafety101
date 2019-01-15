@@ -27,7 +27,13 @@ public class ControllerControl : MonoBehaviour {
         string debugTextConstructor = "";
 		if (OVRInput.IsControllerConnected(OVRInput.Controller.RTrackedRemote)){
             UpdatePointer();
-            CheckPointer();
+            if(currCraftArea != null) {
+                if(!currCraftArea.isCrafting) {
+                    CheckPointer();
+                }
+            } else {
+                CheckPointer();
+            }
 
             if(heldPickup != null) {
                 if(OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger)) {
@@ -36,17 +42,18 @@ public class ControllerControl : MonoBehaviour {
                     heldPickup = null;
                 }
             } else if(targetPickup != null) {
-				if(OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)){
+				if(OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)) {
 					heldPickup = targetPickup;
 					heldPickup.Pickup(controller.transform, holdObjectOffset);
 					GameController.Highlight(heldPickup.type, true);
                 }
                 if(targetPickup.currentArea is CraftingGridSlot) {
-                    currCraftArea = (CraftingGridSlot)targetPickup.currentArea;
-                    if(currCraftArea.canCraft) {
-                        if(OVRInput.GetDown(OVRInput.Button.PrimaryTouchpad)) {
+                    CraftingGridSlot craftarea = (CraftingGridSlot)targetPickup.currentArea;
+                    if(craftarea.canCraft) {
+                        currCraftArea = craftarea;
+                        if(OVRInput.GetDown(OVRInput.Button.PrimaryTouchpad) && !currCraftArea.isCrafting) {
                             currCraftArea.ActivateCrafting();
-                        }else if(OVRInput.GetUp(OVRInput.Button.PrimaryTouchpad)) {
+                        }else if(OVRInput.GetUp(OVRInput.Button.PrimaryTouchpad) && currCraftArea.isCrafting) {
                             currCraftArea.DeactivateCrafting();
                         } //else 
                     }
@@ -54,12 +61,15 @@ public class ControllerControl : MonoBehaviour {
             }
 
             if(currCraftArea != null) {
+                if(targetPickup == null) {
+                    currCraftArea = null;
+                }
                 if(OVRInput.Get(OVRInput.Button.PrimaryTouchpad)) {
                     Vector3 currentOrientation = controller.rotation.eulerAngles;
                     Vector3 difference = (currentOrientation - controllerOrientation);
                     currCraftArea.item.transform.Rotate(new Vector3(0, 0, difference.z), Space.Self);
                 }
-                if(OVRInput.GetUp(OVRInput.Button.PrimaryTouchpad)) {
+                if(OVRInput.GetUp(OVRInput.Button.PrimaryTouchpad) && currCraftArea.isCrafting) {
                     currCraftArea.DeactivateCrafting();
                     currCraftArea = null;
                 }
