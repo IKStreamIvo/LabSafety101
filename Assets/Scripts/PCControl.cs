@@ -25,6 +25,7 @@ public class PCControl : MonoBehaviour {
 	private PickupObject targetPickup;
 	private PickupObject heldPickup;
 	private PlacementArea targetArea;
+    private Container targetContainer;
     private CraftingGridSlot currCraftArea;
 
     private void Start() {
@@ -44,7 +45,7 @@ public class PCControl : MonoBehaviour {
 
         if(heldPickup != null) {
             if(Input.GetMouseButtonUp(0)) {
-                heldPickup.Release(targetArea);
+                heldPickup.Release(targetArea, targetContainer);
                 GameController.Highlight(heldPickup.type, false);
                 heldPickup = null;
             }
@@ -101,9 +102,21 @@ public class PCControl : MonoBehaviour {
 				}else{
 					targetArea = null;
 				}
-			}else{
-				targetArea = null;
-			}
+            }
+            else if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 11))
+            {
+                Debug.Log("WaistContainer");
+                Container waistContainer = hit.collider.GetComponent<Container>();
+                Debug.Log(waistContainer);
+                if (waistContainer.TargetHit(heldPickup.type))
+                    targetContainer = waistContainer;
+                else
+                    targetArea = null;
+            }
+            else
+            {
+                targetArea = null;
+            }
 		}
 	}
 

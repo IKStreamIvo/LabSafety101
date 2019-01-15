@@ -13,6 +13,7 @@ public class ControllerControl : MonoBehaviour {
     private PickupObject targetPickup;
     private PickupObject heldPickup;
     private PlacementArea targetArea;
+    private Container targetContainer;
     private CraftingGridSlot currCraftArea;
     private Vector3 forward;
     private float lineLength;
@@ -37,7 +38,7 @@ public class ControllerControl : MonoBehaviour {
 
             if(heldPickup != null) {
                 if(OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger)) {
-                    heldPickup.Release(targetArea);
+                    heldPickup.Release(targetArea, targetContainer);
                     GameController.Highlight(heldPickup.type, false);
                     heldPickup = null;
                 }
@@ -106,7 +107,19 @@ public class ControllerControl : MonoBehaviour {
 				}else{
 					targetArea = null;
 				}
-			}else{
+            }
+            else if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 11))
+            {
+                Debug.Log("WaistContainer");
+                Container waistContainer = hit.collider.GetComponent<Container>();
+                Debug.Log(waistContainer);
+                if (waistContainer.TargetHit(heldPickup.type))
+                    targetContainer = waistContainer;
+                else
+                    targetArea = null;
+            }
+            else
+            {
 				targetArea = null;
 			}
 		}

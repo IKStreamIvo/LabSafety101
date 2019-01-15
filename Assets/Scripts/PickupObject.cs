@@ -40,16 +40,22 @@ public class PickupObject : MonoBehaviour {
         }*/
     }
 
-	public void Release(PlacementArea target){
-		if(target == null){
-			transform.SetParent(null);
-			transform.localPosition = originalPosition;
-			transform.localRotation = originalRotation;
-            transform.localScale    = originalScale;
-		}else{
-			target.PlaceObject(this);
-			currentArea = target;
-		}
+	public void Release(PlacementArea targetArea, Container targetContainer){
+        Debug.Log(targetContainer);
+        if (targetArea != null)
+        {
+            targetArea.PlaceObject(this);
+            currentArea = targetArea;
+        }
+        else if (targetContainer != null)
+            targetContainer.PlaceObject(this.gameObject);
+        else
+        {
+            transform.SetParent(null);
+            transform.localPosition = originalPosition;
+            transform.localRotation = originalRotation;
+            transform.localScale = originalScale;
+        }
 	}
 
 	public void Pickup(Transform parent, Vector3 holdObjectOffset){

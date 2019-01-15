@@ -1,6 +1,7 @@
 using UnityEngine;
 
 public class PlacementArea : MonoBehaviour {
+    [SerializeField] private bool isContainer = false;
     [SerializeField] private bool specificType;
     [SerializeField] private GameController.PickupType acceptsType;
     public Vector3 placePosition {get; private set;}
@@ -70,7 +71,7 @@ public class PlacementArea : MonoBehaviour {
         }
     }
 
-    public bool TargetHit(GameController.PickupType type){
+    public virtual bool TargetHit(GameController.PickupType type){
         if(specificType){
             if(acceptsType != type){
                 return false;
