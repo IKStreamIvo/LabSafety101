@@ -123,6 +123,14 @@ public class ControllerControl : MonoBehaviour {
 				targetArea = null;
 			}
 		}
+
+        if(heldPickup == null) {
+            RaycastHit hit;
+            Ray ray = new Ray(controller.transform.position, forward);
+            if(Physics.Raycast(ray, out hit, Mathf.Infinity)){
+                lineLength = hit.distance;
+            }
+        }
 	}
 
 	private void UpdatePointer(){

@@ -1,22 +1,72 @@
 fileFormatVersion: 2
-guid: 98916424649cd7d45ac0cc487d911151
+guid: 70210320947f12b4b9b84d03c60f4ce0
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Box001
-    100002: //RootNode
-    100004: Cylinder002
-    400000: Box001
-    400002: //RootNode
-    400004: Cylinder002
-    2100000: No Name
-    2300000: Box001
-    2300002: Cylinder002
-    3300000: Box001
-    3300002: Cylinder002
-    4300000: Cylinder002
-    4300002: Box001
-    9500000: //RootNode
+    100000: Box015
+    100002: Cylinder040
+    100004: Cylinder070
+    100006: Cylinder071
+    100008: Cylinder072
+    100010: Cylinder073
+    100012: //RootNode
+    100014: fume hood
+    100016: Object002
+    100018: Object003
+    100020: Object004
+    400000: Box015
+    400002: Cylinder040
+    400004: Cylinder070
+    400006: Cylinder071
+    400008: Cylinder072
+    400010: Cylinder073
+    400012: fume hood
+    400014: //RootNode
+    400016: Object002
+    400018: Object003
+    400020: Object004
+    2100000: 03 - Default
+    2100002: 13 - Default
+    2100004: 19 - Default
+    2100006: No Name
+    2100008: 'Material #526'
+    2100010: 'Material #525'
+    2300000: Box015
+    2300002: Cylinder040
+    2300004: Cylinder070
+    2300006: Cylinder071
+    2300008: Cylinder072
+    2300010: Cylinder073
+    2300012: Object002
+    2300014: Object003
+    2300016: Object004
+    3300000: Box015
+    3300002: Cylinder040
+    3300004: Cylinder070
+    3300006: Cylinder071
+    3300008: Cylinder072
+    3300010: Cylinder073
+    3300012: Object002
+    3300014: Object003
+    3300016: Object004
+    4300000: Object002
+    4300002: Object003
+    4300004: Object004
+    4300006: Box015
+    4300008: Cylinder040
+    4300010: Cylinder070
+    4300012: Cylinder072
+    4300014: Cylinder071
+    4300016: Cylinder073
+    6400000: Box015
+    6400002: Cylinder040
+    6400004: Cylinder070
+    6400006: Cylinder071
+    6400008: Cylinder072
+    6400010: Cylinder073
+    6400012: Object002
+    6400014: Object003
+    6400016: Object004
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -50,12 +100,12 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     useSRGBMaterialColor: 1
-    importVisibility: 1
-    importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importVisibility: 0
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -69,8 +119,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.0254
-    hasPreviousCalculatedGlobalScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -97,7 +147,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

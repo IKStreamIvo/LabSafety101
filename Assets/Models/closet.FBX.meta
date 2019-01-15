@@ -1,22 +1,15 @@
 fileFormatVersion: 2
-guid: 98916424649cd7d45ac0cc487d911151
+guid: 9698500a2b9d0f24aa42c0e753c19293
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Box001
-    100002: //RootNode
-    100004: Cylinder002
-    400000: Box001
-    400002: //RootNode
-    400004: Cylinder002
+    100000: //RootNode
+    400000: //RootNode
     2100000: No Name
-    2300000: Box001
-    2300002: Cylinder002
-    3300000: Box001
-    3300002: Cylinder002
-    4300000: Cylinder002
-    4300002: Box001
-    9500000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Box007
+    6400000: //RootNode
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -50,12 +43,12 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     useSRGBMaterialColor: 1
-    importVisibility: 1
-    importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importVisibility: 0
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -69,8 +62,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.0254
-    hasPreviousCalculatedGlobalScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -97,7 +90,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
