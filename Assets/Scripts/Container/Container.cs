@@ -6,11 +6,37 @@ public class Container : MonoBehaviour
 {
     [SerializeField] private int _waistId;
     [SerializeField] private GameController.PickupType acceptsType;
-    [SerializeField] private MeshRenderer highlightObject;
-    [SerializeField] private Color targetedColor;
-    private Color defaultColor;
+
     private bool targeted;
+    private Color defaultColor;
+    [SerializeField] private Color targetedColor;
+    [SerializeField] private Renderer render;
+
     private bool prevTargetState;
+
+    private void Start()
+    {
+        defaultColor = render.material.color;
+    }
+
+    public void Update()
+    {
+        if (targeted)
+        {
+            Material mat = render.material;
+            mat.color = targetedColor;
+            render.material = mat;
+            Debug.Log("Targeted");
+        }
+        else
+        {
+            Material mat = render.material;
+            mat.color = defaultColor;
+            render.material = mat;
+        }
+        prevTargetState = targeted;
+        targeted = false;
+    }
 
     public void PlaceObject(GameObject target)
     {
@@ -30,29 +56,10 @@ public class Container : MonoBehaviour
     public bool TargetHit(GameController.PickupType type)
     {
         if (acceptsType != type)
-            return false;
+            targeted = false;
         else
-            return true;
-    }
+            targeted = true;
 
-    public void Update()
-    {/*
-        if (highlightObject.enabled)
-        {
-            if (targeted)
-            {
-                Material mat = highlightObject.material;
-                mat.color = targetedColor;
-                highlightObject.material = mat;
-            }
-            else
-            {
-                Material mat = highlightObject.material;
-                mat.color = defaultColor;
-                highlightObject.material = mat;
-            }
-            prevTargetState = targeted;
-            targeted = false; //to keep checking if we're being targeted
-        }*/
+        return targeted;
     }
 }

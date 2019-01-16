@@ -105,9 +105,7 @@ public class PCControl : MonoBehaviour {
             }
             else if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 11))
             {
-                Debug.Log("WaistContainer");
                 Container waistContainer = hit.collider.GetComponent<Container>();
-                Debug.Log(waistContainer);
                 if (waistContainer.TargetHit(heldPickup.type))
                     targetContainer = waistContainer;
                 else

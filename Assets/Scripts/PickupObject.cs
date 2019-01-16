@@ -41,7 +41,6 @@ public class PickupObject : MonoBehaviour {
     }
 
 	public void Release(PlacementArea targetArea, Container targetContainer){
-        Debug.Log(targetContainer);
         if (targetArea != null)
         {
             targetArea.PlaceObject(this);
