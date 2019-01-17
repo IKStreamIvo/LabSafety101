@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
@@ -11,6 +12,12 @@ public class GameController : MonoBehaviour {
             VRMode = true;
         } else {
             VRMode = false;
+        }
+    }
+
+    private void Update() {
+        if(OVRInput.GetDown(OVRInput.Button.Two)) {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
