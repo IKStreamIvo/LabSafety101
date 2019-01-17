@@ -22,12 +22,13 @@ public class PlacementArea : MonoBehaviour {
         defaultColor = highlightObject.material.color;
         sqrRenderer = GetComponentInChildren<SpriteRenderer>();
         sqrDefaultColor = sqrRenderer.color;
+        placePosition = transform.position;
     }
 
     public virtual void PlaceObject(PickupObject target){
         item = target;
-        target.transform.SetParent(transform);
-        target.transform.localPosition = placePosition + new Vector3(0f, -target.bounds.center.y / 2f, 0f);
+        target.transform.SetParent(null);
+        target.transform.localPosition = placePosition + new Vector3(0f, target.bounds.center.y / 5f, 0f);
         target.transform.localRotation = target.originalRotation;
         ocupied = true;
         Highlight(false);
@@ -47,7 +48,8 @@ public class PlacementArea : MonoBehaviour {
                 return;
             }
         }
-        if(!ocupied){
+        if(!ocupied) {
+            Debug.Log(highlightObject);
             highlightObject.enabled = state;
         }
     }

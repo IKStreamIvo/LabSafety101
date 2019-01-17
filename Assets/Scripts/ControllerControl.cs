@@ -43,12 +43,14 @@ public class ControllerControl : MonoBehaviour {
                     heldPickup = null;
                 }
             } else if(targetPickup != null) {
-				if(OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)) {
+                debugTextConstructor += targetPickup + "\n";
+                if(OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)) {
 					heldPickup = targetPickup;
 					heldPickup.Pickup(controller.transform, holdObjectOffset);
 					GameController.Highlight(heldPickup.type, true);
                 }
                 if(targetPickup.currentArea is CraftingGridSlot) {
+                    debugTextConstructor += targetPickup.currentArea.name + "\n";
                     CraftingGridSlot craftarea = (CraftingGridSlot)targetPickup.currentArea;
                     if(craftarea.canCraft) {
                         currCraftArea = craftarea;
@@ -60,7 +62,7 @@ public class ControllerControl : MonoBehaviour {
                     }
                 }
             }
-
+            debugTextConstructor += (currCraftArea != null).ToString() + "\n";
             if(currCraftArea != null) {
                 if(targetPickup == null) {
                     currCraftArea = null;
@@ -114,12 +116,13 @@ public class ControllerControl : MonoBehaviour {
                 if (waistContainer.TargetHit(heldPickup.type))
                     targetContainer = waistContainer;
                 else
-                    targetArea = null;
+                    targetContainer = null;
             }
             else
             {
 				targetArea = null;
-			}
+                targetContainer = null;
+            }
 		}
 
         if(heldPickup == null) {

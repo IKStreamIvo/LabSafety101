@@ -56,7 +56,7 @@ public class CraftingGridSlot : PlacementArea {
         if(isMoving) return;
         if(!canCraft) return;
         isCrafting = true;
-        targetPos = item.gameObject.transform.position + new Vector3(0f, -item.bounds.center.y / 2f, 0f);
+        targetPos = item.gameObject.transform.position + new Vector3(0f, item.bounds.center.y / 2f, 0f);
         if(GameController.VRMode) {
             controllerOffset = GameController.vrController.transform.position;
         }
@@ -64,7 +64,7 @@ public class CraftingGridSlot : PlacementArea {
     public void DeactivateCrafting() {
         if(!isCrafting) return;
         isCrafting = false;
-        targetPos = item.transform.position - new Vector3(0f, -item.bounds.center.y / 2f, 0f);
+        targetPos = placePosition + new Vector3(0f, item.bounds.center.y / 5f, 0f); ;
         item.transform.localRotation = item.originalRotation;
     }
 
