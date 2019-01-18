@@ -49,10 +49,12 @@ public class Container : MonoBehaviour
         ph phValue = liquid.phValue;
         if (phValue.CheckPHWaist(_waistId))
         {
+            GameController.LogDialog("Correct container", true);
             Debug.Log("Correct!");
         }
         else
         {
+            GameController.LogDialog("Incorrect container", true);
             Debug.Log("Incorrect...");
         }
         Destroy(target);
