@@ -13,6 +13,8 @@ public class GameController : MonoBehaviour {
         } else {
             VRMode = false;
         }
+
+        mainCamera = Camera.main.transform;
     }
 
     private void Update() {
@@ -23,6 +25,7 @@ public class GameController : MonoBehaviour {
 
     #region Controls
     public static bool VRMode { get; private set; }
+    public static Transform mainCamera { get; private set; }
     public static Transform vrController { get; private set; }
     #endregion 
 

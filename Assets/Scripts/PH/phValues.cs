@@ -35,7 +35,7 @@ public class ph
 
 public class phValues
 {
-    List<ph> valueList = new List<ph>();
+    public readonly List<ph> valueList = new List<ph>();
 
     public phValues()
     {
@@ -61,6 +61,8 @@ public class phValues
         int index = Random.Range(0, valueList.Count);
         return valueList[index];
     }
+
+
 
     public ph MixingValues(ph phOne, ph phTwo)
     {

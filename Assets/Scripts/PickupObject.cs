@@ -13,6 +13,7 @@ public class PickupObject : MonoBehaviour {
     public Vector3 originalScale { get; private set; }
     public Bounds bounds {get; private set;}
 	public PlacementArea currentArea {get; private set;}
+    [SerializeField] private GameObject disableOnPickup;
 
 	private void Start() {
 		rigidbody = GetComponent<Rigidbody>();
@@ -55,7 +56,10 @@ public class PickupObject : MonoBehaviour {
             transform.localRotation = originalRotation;
             transform.localScale = originalScale;
         }
-	}
+        if(disableOnPickup != null) {
+            disableOnPickup.SetActive(true);
+        }
+    }
 
 	public void Pickup(Transform parent, Vector3 holdObjectOffset){
 		if(currentArea != null){
@@ -65,6 +69,9 @@ public class PickupObject : MonoBehaviour {
 		transform.localPosition = holdObjectOffset;
         transform.localRotation = originalRotation;
         transform.localScale = originalScale;
+        if(disableOnPickup != null) {
+            disableOnPickup.SetActive(false);
+        }
     }
 
 

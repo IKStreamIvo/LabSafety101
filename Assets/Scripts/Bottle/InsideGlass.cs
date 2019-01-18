@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 // Project
@@ -21,16 +22,19 @@ public class InsideGlass : MonoBehaviour
     private float _timer = 0f;
     public LiquidStream liquidStream;
     private phValues phList = new phValues();
+    public TextMeshPro phDisplay;
 
     [SerializeField] private BoilerEffect boiling;
 
-    void Start()
+    void Awake()
     {
         // Set start ph value
         phValue = phList.RandomPHValue();
         _rendLiquid = GetComponent<Renderer>();
         start = phValue.GetColor();
         _rendLiquid.material.color = start;
+
+        phDisplay.SetText(phValue.GetId().ToString());
     }
 
     void Update()
@@ -70,6 +74,7 @@ public class InsideGlass : MonoBehaviour
             phValue = phList.MixingValues(phValue, addedphValue);
             changeColor = true;
             _lastAddedPh = addedphValue;
+            phDisplay.SetText(phValue.GetId().ToString());
         }
     }
 
@@ -89,4 +94,12 @@ public class InsideGlass : MonoBehaviour
         }
     }
 
+    public void ForcePH(ph newPh) {
+        phValue = newPh;
+
+        start = phValue.GetColor();
+        _rendLiquid.material.color = start;
+
+        phDisplay.SetText(phValue.GetId().ToString());
+    }
 }

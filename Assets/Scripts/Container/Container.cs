@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Container : MonoBehaviour
@@ -12,11 +13,15 @@ public class Container : MonoBehaviour
     [SerializeField] private Color targetedColor;
     [SerializeField] private Renderer render;
 
+    private TextMeshPro phDisplay;
     private bool prevTargetState;
 
     private void Start()
     {
         defaultColor = render.material.color;
+
+        phDisplay = GetComponentInChildren<TextMeshPro>();
+        phDisplay.SetText(_waistId.ToString());
     }
 
     public void Update()

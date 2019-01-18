@@ -12,6 +12,7 @@ public class Bottle : MonoBehaviour
     private float stream = 0;
     public float maxStream = 25f;
     private float liquid = 0f;
+    [SerializeField] private int startPH = -1;
 
     // What you need to change content or stream
     private float _countDown = 0f;
@@ -21,6 +22,14 @@ public class Bottle : MonoBehaviour
     public LiquidStream currentParticles;
     public InsideGlass sizeLiquid;
     public BoilerEffect boilerEffect;
+
+    void Start() {
+        if(startPH != -1) {
+            phValues vals = new phValues();
+            ph PH = vals.valueList[startPH];
+            GetComponentInChildren<InsideGlass>().ForcePH(PH);
+        }
+    }
 
     void Update()
     {
