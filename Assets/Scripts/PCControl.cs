@@ -27,6 +27,8 @@ public class PCControl : MonoBehaviour {
 	private PlacementArea targetArea;
     private Container targetContainer;
     private CraftingGridSlot currCraftArea;
+    private string _menuButton;
+    [SerializeField] private MenuButtons menu;
 
     private void Start() {
         if (lockCursor) {
@@ -43,7 +45,13 @@ public class PCControl : MonoBehaviour {
             CheckPointer();
         }
 
-        if(heldPickup != null) {
+        if (_menuButton != null)
+        {
+            if (Input.GetMouseButtonUp(0))
+                menu.UseButton(_menuButton);
+        }
+
+        if (heldPickup != null) {
             if(Input.GetMouseButtonUp(0)) {
                 heldPickup.Release(targetArea, targetContainer);
                 GameController.Highlight(heldPickup.type, false);
@@ -76,14 +84,18 @@ public class PCControl : MonoBehaviour {
                 currCraftArea = null;
             }
         }
-		
 	}
 
 	private void CheckPointer(){
-		if(heldPickup == null){ //interactables
+        RaycastHit hit;
+        Ray ray = camera.ViewportPointToRay(new Vector3(.5f, .5f, 0f));
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 12))
+            _menuButton = hit.collider.gameObject.name;
+        else
+            _menuButton = null;
+
+        if (heldPickup == null){ //interactables
 			int layerMask = (1 << 8);
-			RaycastHit hit;
-			Ray ray = camera.ViewportPointToRay(new Vector3(.5f, .5f, 0f));
 			if(Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)){
 				targetPickup = hit.collider.attachedRigidbody.GetComponent<PickupObject>();
 			}else{
@@ -93,15 +105,17 @@ public class PCControl : MonoBehaviour {
 		
 		if(heldPickup != null){ //placement areas
 			int layerMask = (1 << 9);
-			RaycastHit hit;
-			Ray ray = camera.ViewportPointToRay(new Vector3(.5f, .5f, 0f));
-			if(Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)){
-				PlacementArea area = hit.collider.GetComponent<PlacementArea>();
-				if(area.TargetHit(heldPickup.type)){
-					targetArea = area;
-				}else{
-					targetArea = null;
-				}
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+            {
+                PlacementArea area = hit.collider.GetComponent<PlacementArea>();
+                if (area.TargetHit(heldPickup.type))
+                {
+                    targetArea = area;
+                }
+                else
+                {
+                    targetArea = null;
+                }
             }
             else if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 11))
             {

@@ -49,7 +49,6 @@ public class PlacementArea : MonoBehaviour {
             }
         }
         if(!ocupied) {
-            Debug.Log(highlightObject);
             highlightObject.enabled = state;
         }
     }

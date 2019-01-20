@@ -19,6 +19,8 @@ public class ControllerControl : MonoBehaviour {
     private float lineLength;
     private Vector3 controllerOrientation;
     [SerializeField] private TextMeshPro debugText;
+    private string _menuButton;
+    [SerializeField] private MenuButtons menu;
 
     void Start () {
         UpdatePointer();
@@ -36,7 +38,13 @@ public class ControllerControl : MonoBehaviour {
                 CheckPointer();
             }
 
-            if(heldPickup != null) {
+            if (_menuButton != null)
+            {
+                if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger))
+                    menu.UseButton(_menuButton);
+            }
+
+            if (heldPickup != null) {
                 if(OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger)) {
                     heldPickup.Release(targetArea, targetContainer);
                     GameController.Highlight(heldPickup.type, false);
@@ -85,14 +93,21 @@ public class ControllerControl : MonoBehaviour {
     }
 
 	private void CheckPointer(){
-		if(heldPickup == null){ //interactables
+        RaycastHit hit;
+        Ray ray = new Ray(controller.transform.position, forward);
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 12))
+            _menuButton = hit.collider.gameObject.name;
+        else
+            _menuButton = null;
+
+        if (heldPickup == null){ //interactables
 			int layerMask = (1 << 8);
-			RaycastHit hit;
-            Ray ray = new Ray(controller.transform.position, forward);
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)){
                 lineLength = hit.distance;
                 targetPickup = hit.collider.attachedRigidbody.GetComponent<PickupObject>();
-			}else{
+			}
+            else
+            {
 				targetPickup = null;
                 lineLength = pointerRange;
             }
@@ -100,8 +115,6 @@ public class ControllerControl : MonoBehaviour {
 		
 		if(heldPickup != null){ //placement areas
 			int layerMask = (1 << 9);
-			RaycastHit hit;
-            Ray ray = new Ray(controller.transform.position, forward);
 			if(Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)){
 				PlacementArea area = hit.collider.GetComponent<PlacementArea>();
 				if(area.TargetHit(heldPickup.type)){
@@ -126,8 +139,6 @@ public class ControllerControl : MonoBehaviour {
 		}
 
         if(heldPickup == null) {
-            RaycastHit hit;
-            Ray ray = new Ray(controller.transform.position, forward);
             if(Physics.Raycast(ray, out hit, Mathf.Infinity)){
                 lineLength = hit.distance;
             }
