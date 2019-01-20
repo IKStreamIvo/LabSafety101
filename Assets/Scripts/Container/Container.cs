@@ -16,6 +16,16 @@ public class Container : MonoBehaviour
     private TextMeshPro phDisplay;
     private bool prevTargetState;
 
+
+    private float t = 0.0f;
+
+    private bool explode = false;
+    [SerializeField] private GameObject explosion;
+    [SerializeField] private GameObject darkRoom;
+
+    private bool explodeConfetti = false;
+    [SerializeField] private GameObject confetti;
+
     private void Start()
     {
         defaultColor = render.material.color;
@@ -41,6 +51,18 @@ public class Container : MonoBehaviour
         }
         prevTargetState = targeted;
         targeted = false;
+
+        if (explode)
+        {
+            Renderer rend = darkRoom.GetComponent<Renderer>();
+            rend.material.SetFloat("_Metallic", Mathf.Lerp(0, 1, t));
+            t += 0.5f * Time.deltaTime;
+        }
+        else
+        {
+            Renderer rend = darkRoom.GetComponent<Renderer>();
+            rend.material.SetFloat("_Metallic", 0);
+        }
     }
 
     public void PlaceObject(GameObject target)
@@ -51,11 +73,13 @@ public class Container : MonoBehaviour
         {
             GameController.LogDialog("Correct container", true);
             Debug.Log("Correct!");
+            StartCoroutine(Confetti());
         }
         else
         {
             GameController.LogDialog("Incorrect container", true);
             Debug.Log("Incorrect...");
+            StartCoroutine(Exploding());
         }
         Destroy(target);
     }
@@ -68,5 +92,25 @@ public class Container : MonoBehaviour
             targeted = true;
 
         return targeted;
+    }
+
+    private IEnumerator Exploding()
+    {
+        GameObject currentExplosion = Instantiate(explosion, transform);
+        darkRoom.SetActive(true);
+        explode = true;
+
+        yield return new WaitForSeconds(2f);
+        darkRoom.SetActive(false);
+        t = 0.0f;
+        explode = false;
+        Destroy(currentExplosion);
+    }
+
+    private IEnumerator Confetti()
+    {
+        GameObject currentConfetti = Instantiate(confetti, transform);
+        yield return new WaitForSeconds(2f);
+        Destroy(currentConfetti);
     }
 }
