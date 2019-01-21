@@ -45,6 +45,8 @@ public class InsideGlass : MonoBehaviour
             // Slowly go to other color
             Color newColor = Color.Lerp(start, phValue.GetColor(), _timer);
             _rendLiquid.material.color = newColor;
+            _rendLiquid.material.SetColor("_EmissionColor", newColor);
+
             liquidStream.ChangeColor(newColor);
             boiling.ChangeColor(newColor);
 
@@ -99,6 +101,7 @@ public class InsideGlass : MonoBehaviour
 
         start = phValue.GetColor();
         _rendLiquid.material.color = start;
+        _rendLiquid.material.SetColor("_EmissionColor", start);
 
         phDisplay.SetText(phValue.GetId().ToString());
     }

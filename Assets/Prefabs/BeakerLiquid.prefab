@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f120534108017a34d87608e489862c4e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -163,7 +163,8 @@ MonoBehaviour:
   content: 2000
   maxContent: 2000
   maxStream: 25
-  speed: 10
+  startPH: -1
+  speed: 50
   currentParticles: {fileID: 6101367886947546184}
   sizeLiquid: {fileID: 386451639}
   boilerEffect: {fileID: 1586848021}
