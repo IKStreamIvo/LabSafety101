@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657743, g: 0.49641138, b: 0.57481605, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657737, g: 0.4964111, b: 0.57481545, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -493,8 +493,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 3ed8cb2b8573de14caad19a4c6a4dc16, type: 3}
 --- !u!4 &47495842 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 3ed8cb2b8573de14caad19a4c6a4dc16,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 47495841}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &72147685
@@ -2024,12 +2023,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: faa89dff5eddb0f4198aabd57b41a055, type: 3}
---- !u!4 &589298381 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 3ed8cb2b8573de14caad19a4c6a4dc16,
-    type: 3}
-  m_PrefabInstance: {fileID: 1693976949}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &604797865
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4638,7 +4631,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 180676032e2b13e4bafa448a423a6318, type: 2}
+  - {fileID: 2100000, guid: c31fabf0cb0ddcc42b4bb79608eb2893, type: 2}
   - {fileID: 2100002, guid: 1773010242596fd4fb905af031b1780f, type: 3}
   - {fileID: 2100004, guid: 1773010242596fd4fb905af031b1780f, type: 3}
   m_StaticBatchInfo:
@@ -5379,7 +5372,7 @@ Transform:
   - {fileID: 859409059}
   - {fileID: 238521123}
   - {fileID: 1192376611}
-  - {fileID: 589298381}
+  - {fileID: 1693976950}
   - {fileID: 272360636}
   - {fileID: 1370859759}
   - {fileID: 1420428039}
@@ -5458,6 +5451,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ed8cb2b8573de14caad19a4c6a4dc16, type: 3}
+--- !u!4 &1693976950 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 1693976949}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1704147533
 GameObject:
   m_ObjectHideFlags: 0
