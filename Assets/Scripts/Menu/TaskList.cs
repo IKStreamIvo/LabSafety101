@@ -30,7 +30,7 @@ public class TaskList : MonoBehaviour
         for (int i = 0; i < tasks.Count; i++)
         {
             GameObject task = Instantiate(prefabTask, transform);
-            task.transform.position += new Vector3(xPosition, (-ySize * (i + 1)), 0);
+            task.transform.position += new Vector3(0, (-ySize * (i + 1)), -xPosition);
             task.GetComponent<TaskBehaviour>().SetTask(i, tasks[i]);
             behaviours.Add(task.GetComponent<TaskBehaviour>());
         }

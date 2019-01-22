@@ -22,6 +22,7 @@ public class Container : MonoBehaviour
     private bool explode = false;
     [SerializeField] private GameObject explosion;
     [SerializeField] private GameObject darkRoom;
+    [SerializeField] private Transform player;
 
     private bool explodeConfetti = false;
     [SerializeField] private GameObject confetti;
@@ -52,6 +53,7 @@ public class Container : MonoBehaviour
         prevTargetState = targeted;
         targeted = false;
 
+        /*
         if (explode)
         {
             Renderer rend = darkRoom.GetComponent<Renderer>();
@@ -62,7 +64,7 @@ public class Container : MonoBehaviour
         {
             Renderer rend = darkRoom.GetComponent<Renderer>();
             rend.material.SetFloat("_Metallic", 0);
-        }
+        }*/
     }
 
     public void PlaceObject(GameObject target)
@@ -71,13 +73,11 @@ public class Container : MonoBehaviour
         ph phValue = liquid.phValue;
         if (phValue.CheckPHWaist(_waistId))
         {
-            GameController.LogDialog("Correct container", true);
             Debug.Log("Correct!");
             StartCoroutine(Confetti());
         }
         else
         {
-            GameController.LogDialog("Incorrect container", true);
             Debug.Log("Incorrect...");
             StartCoroutine(Exploding());
         }
@@ -97,14 +97,16 @@ public class Container : MonoBehaviour
     private IEnumerator Exploding()
     {
         GameObject currentExplosion = Instantiate(explosion, transform);
-        darkRoom.SetActive(true);
+        GameObject room = Instantiate(darkRoom, player);
+        //darkRoom.SetActive(true);
         explode = true;
 
         yield return new WaitForSeconds(2f);
-        darkRoom.SetActive(false);
+        //darkRoom.SetActive(false);
         t = 0.0f;
         explode = false;
         Destroy(currentExplosion);
+        Destroy(room);
     }
 
     private IEnumerator Confetti()

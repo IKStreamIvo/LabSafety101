@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MenuBehaviour : MonoBehaviour
 {
-    public bool followCamera;
+    public bool followCamera = true;
     [SerializeField] private Transform _camera;
     private Vector3 offset;
 
@@ -25,14 +25,14 @@ public class MenuBehaviour : MonoBehaviour
             mainMenu.SetActive(true);
             taskMenu.SetActive(false);
             transform.position = new Vector3(_camera.position.x, _camera.position.y, _camera.position.z);
-            transform.rotation = _camera.transform.rotation * Quaternion.Euler(0, 0, 0);
+            transform.rotation = _camera.transform.rotation * Quaternion.Euler(0, 90f, 0);
         }
         else
         {
             mainMenu.SetActive(false);
             taskMenu.SetActive(true);
-            transform.position = new Vector3(-0.776f, 1.22f, 3.624f);
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            transform.position = new Vector3(-3.515f, 1.296f, -0.224f);
+            transform.rotation = Quaternion.Euler(0, 180f, 0);
         }
     }
 }

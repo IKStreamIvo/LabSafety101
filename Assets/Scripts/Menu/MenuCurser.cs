@@ -10,30 +10,51 @@ public class MenuCurser : MonoBehaviour
 
     void Update()
     {
-        /* This is where input of Oculus Go 
-         * I found:
-         * VRInput.Get(OVRInput.Axis2D.PrimaryThumbstick); 
-         *  
-         */
+        // For Oculus Go
+        // Vector2 joystick = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
+        // Vector3 movement = new Vector3(joystick.x, joystick.y, 0);
 
-        Vector3 pos = Input.mousePosition;
-        pos.z = transform.position.z - Camera.main.transform.position.z;
-        Vector3 newPos = Camera.main.ScreenToWorldPoint(pos);
+        // For PC
+        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+
+        movement = movement * 0.01f;
+
+        Vector3 euler = screen.eulerAngles;
+        screen.eulerAngles = new Vector3(0, 0, 0);
+
+        transform.Translate(movement);
+
+        float height = screen.localScale.y;
+        float width = screen.localScale.x;
+
+        if (transform.position.z > (screen.position.z + (0.45f*width)))
+            transform.position = new Vector3(transform.position.x, transform.position.y, screen.position.z + (width*0.45f));
+        else if (transform.position.z < (screen.position.z - (0.446f*width)))
+            transform.position = new Vector3(transform.position.x, transform.position.y, screen.position.z - (width*0.446f));
+
+        if (transform.position.y > (screen.position.y + (height*0.626f)))
+            transform.position = new Vector3(transform.position.x, screen.position.y + (height*0.626f), transform.position.z);
+        if (transform.position.y < (screen.position.y - (height*0.6f)))
+            transform.position = new Vector3(transform.position.x, screen.position.y - (height*0.6f), transform.position.z);
+
+        screen.eulerAngles = euler;
 
         RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit))
+        Vector3 fwd = transform.TransformDirection(Vector3.forward);
+        if (Physics.Raycast(transform.position, fwd, out hit, 10))
         {
             string name = hit.collider.name;
-            if (name.Equals("Screen") || name.Equals("Start") || name.Equals("Options"))
+            if (name.Equals("Start") || name.Equals("Options"))
             {
-                transform.position = newPos;
-                if(name.Equals("Start") || name.Equals("Options"))
-                {
-                    if (Input.GetMouseButtonDown(0))
-                        menu.UseButton(name);
-                }
+                // for pc
+                if (Input.GetKeyDown("space"))
+                    menu.UseButton(name);
+
+                // for Oculus Go
+                // if (OVRInput.Get(OVRInput.Button.PrimaryThumbstick))
+                    // menu.UseButton(name);
             }
+
         }
     }
 }
