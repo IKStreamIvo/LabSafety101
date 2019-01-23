@@ -15,6 +15,9 @@ public class MenuBehaviour : MonoBehaviour
     void Start()
     {
         offset = transform.position - _camera.position;
+        /*if(followCamera) {
+            transform.SetParent(_camera, true);
+        }*/
     }
 
     // Update is called once per frame
@@ -26,12 +29,13 @@ public class MenuBehaviour : MonoBehaviour
             taskMenu.SetActive(false);
             transform.position = new Vector3(_camera.position.x, _camera.position.y, _camera.position.z);
             transform.rotation = _camera.transform.rotation * Quaternion.Euler(0, 90f, 0);
+            //transform.LookAt(GameController.mainCamera);
         }
         else
         {
             mainMenu.SetActive(false);
             taskMenu.SetActive(true);
-            transform.position = new Vector3(-3.515f, 1.296f, -0.224f);
+            transform.position = new Vector3(-3.515f, 0.567f, -1.2f);
             transform.rotation = Quaternion.Euler(0, 180f, 0);
         }
     }

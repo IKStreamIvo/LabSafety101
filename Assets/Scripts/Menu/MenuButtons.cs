@@ -7,6 +7,7 @@ public class MenuButtons : MonoBehaviour
 {
     [SerializeField] private MenuBehaviour menu;
     [SerializeField] private TaskList tasks;
+    [SerializeField] private GameObject startDarkBox;
 
     public void UseButton(string button)
     {
@@ -25,6 +26,8 @@ public class MenuButtons : MonoBehaviour
     {
         menu.followCamera = false;
         tasks.ResetLevel();
+        GameController._.ReportAction(GameController.Action.StartGame);
+        Destroy(startDarkBox);
     }
 
     void QuitGame()
@@ -34,6 +37,6 @@ public class MenuButtons : MonoBehaviour
 
     void OptionsGame()
     {
-        menu.followCamera = false;
+        //menu.followCamera = false;
     }
 }

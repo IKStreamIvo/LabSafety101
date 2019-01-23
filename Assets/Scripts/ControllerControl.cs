@@ -28,7 +28,7 @@ public class ControllerControl : MonoBehaviour {
 	
 	private void Update (){
         string debugTextConstructor = "";
-		if (OVRInput.IsControllerConnected(OVRInput.Controller.RTrackedRemote)){
+		if (OVRInput.IsControllerConnected(OVRInput.Controller.RTrackedRemote) && GameController.canPlay){
             UpdatePointer();
             if(currCraftArea != null) {
                 if(!currCraftArea.isCrafting) {
@@ -49,6 +49,7 @@ public class ControllerControl : MonoBehaviour {
                     heldPickup.Release(targetArea, targetContainer);
                     GameController.Highlight(heldPickup.type, false);
                     heldPickup = null;
+                    GameController._.ReportAction(GameController.Action.PlaceDown);
                 }
             } else if(targetPickup != null) {
                 debugTextConstructor += targetPickup + "\n";
@@ -56,6 +57,10 @@ public class ControllerControl : MonoBehaviour {
 					heldPickup = targetPickup;
 					heldPickup.Pickup(controller.transform, holdObjectOffset);
 					GameController.Highlight(heldPickup.type, true);
+                    if(targetPickup.filled)
+                        GameController._.ReportAction(GameController.Action.PickupFull);
+                    else
+                        GameController._.ReportAction(GameController.Action.PickupEmpty);
                 }
                 if(targetPickup.currentArea is CraftingGridSlot) {
                     debugTextConstructor += targetPickup.currentArea.name + "\n";
@@ -64,8 +69,10 @@ public class ControllerControl : MonoBehaviour {
                         currCraftArea = craftarea;
                         if(OVRInput.GetDown(OVRInput.Button.PrimaryTouchpad) && !currCraftArea.isCrafting) {
                             currCraftArea.ActivateCrafting();
-                        }else if(OVRInput.GetUp(OVRInput.Button.PrimaryTouchpad) && currCraftArea.isCrafting) {
+                            GameController._.ReportAction(GameController.Action.Pour);
+                        } else if(OVRInput.GetUp(OVRInput.Button.PrimaryTouchpad) && currCraftArea.isCrafting) {
                             currCraftArea.DeactivateCrafting();
+                            GameController._.ReportAction(GameController.Action.PourStop);
                         } //else 
                     }
                 }
@@ -83,6 +90,7 @@ public class ControllerControl : MonoBehaviour {
                 if(OVRInput.GetUp(OVRInput.Button.PrimaryTouchpad) && currCraftArea.isCrafting) {
                     currCraftArea.DeactivateCrafting();
                     currCraftArea = null;
+                    GameController._.ReportAction(GameController.Action.PourStop);
                 }
             }
 
@@ -141,6 +149,11 @@ public class ControllerControl : MonoBehaviour {
         if(heldPickup == null) {
             if(Physics.Raycast(ray, out hit, Mathf.Infinity)){
                 lineLength = hit.distance;
+            }
+            if(Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 14)) {
+                if(OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)) {
+                    hit.collider.gameObject.GetComponent<HeyGuys>().hey();
+                }
             }
         }
 	}

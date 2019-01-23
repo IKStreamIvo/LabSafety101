@@ -14,7 +14,7 @@ public class PickupObject : MonoBehaviour {
     public Bounds bounds {get; private set;}
 	public PlacementArea currentArea {get; private set;}
     [SerializeField] private GameObject disableOnPickup;
-
+    public bool filled;
 	private void Start() {
 		rigidbody = GetComponent<Rigidbody>();
 

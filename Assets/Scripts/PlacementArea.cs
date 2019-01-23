@@ -28,7 +28,7 @@ public class PlacementArea : MonoBehaviour {
     public virtual void PlaceObject(PickupObject target){
         item = target;
         target.transform.SetParent(null);
-        target.transform.localPosition = placePosition + new Vector3(0f, target.bounds.center.y / 5f, 0f);
+        target.transform.localPosition = placePosition + new Vector3(0f, target.bounds.center.y / 7f, 0f);
         target.transform.localRotation = target.originalRotation;
         ocupied = true;
         Highlight(false);

@@ -56,20 +56,27 @@ public class PCControl : MonoBehaviour {
                 heldPickup.Release(targetArea, targetContainer);
                 GameController.Highlight(heldPickup.type, false);
                 heldPickup = null;
+                GameController._.ReportAction(GameController.Action.PlaceDown);
             }
         }else if(targetPickup != null) {
 			if(Input.GetMouseButtonDown(0)) {
 				heldPickup = targetPickup;
 				heldPickup.Pickup(camera.transform, holdObjectOffset);
 				GameController.Highlight(heldPickup.type, true);
-			}
+                if(targetPickup.filled)
+                    GameController._.ReportAction(GameController.Action.PickupFull);
+                else
+                    GameController._.ReportAction(GameController.Action.PickupEmpty);
+            }
             if(targetPickup.currentArea is CraftingGridSlot) {
                 currCraftArea = (CraftingGridSlot)targetPickup.currentArea;
                 if(currCraftArea.canCraft) {
                     if(Input.GetMouseButtonDown(1)) {
                         currCraftArea.ActivateCrafting();
+                        GameController._.ReportAction(GameController.Action.Pour);
                     } else if(Input.GetMouseButtonUp(1)) {
                         currCraftArea.DeactivateCrafting();
+                        GameController._.ReportAction(GameController.Action.PourStop);
                     }
                 }
             } 
@@ -82,6 +89,7 @@ public class PCControl : MonoBehaviour {
             if(Input.GetMouseButtonUp(1)) {
                 currCraftArea.DeactivateCrafting();
                 currCraftArea = null;
+                GameController._.ReportAction(GameController.Action.PourStop);
             }
         }
 	}

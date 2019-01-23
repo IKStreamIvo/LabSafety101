@@ -66,6 +66,12 @@ public class InsideGlass : MonoBehaviour
                 changeColor = false;
             }
         }
+
+        if(GetComponentInParent<Bottle>().content == 0f) {
+            phDisplay.enabled = false;
+        } else {
+            phDisplay.enabled = true;
+        }
     }
 
     // Change the ph value

@@ -18,8 +18,8 @@ public class TaskList : MonoBehaviour
         tasks.Add("Pick up an empty beaker from the table on the right and place it in between the other two beakers on the grid");
         tasks.Add("Pour both chemicals into the empty beaker");
         tasks.Add("Dispose of the chemical into the correct waste container on the left table.");
-
-        CreateTaskList();
+        
+        //CreateTaskList();
     }
 
     private void CreateTaskList()
@@ -29,8 +29,11 @@ public class TaskList : MonoBehaviour
         behaviours = new List<TaskBehaviour>();
         for (int i = 0; i < tasks.Count; i++)
         {
-            GameObject task = Instantiate(prefabTask, transform);
-            task.transform.position += new Vector3(0, (-ySize * (i + 1)), -xPosition);
+            GameObject task = Instantiate(prefabTask, parentTaskList);
+            task.transform.position += new Vector3(xPosition, (-ySize * (i + 1)), 0f);
+            Vector3 pos = task.transform.localPosition;
+            pos.z = 0f;
+            task.transform.localPosition = pos;
             task.GetComponent<TaskBehaviour>().SetTask(i, tasks[i]);
             behaviours.Add(task.GetComponent<TaskBehaviour>());
         }
@@ -41,9 +44,11 @@ public class TaskList : MonoBehaviour
 
     public void ResetLevel()
     {
+        DebugText.VRLog("Reset Level");
         foreach(TaskBehaviour behaviour in behaviours)
         {
             behaviour.ResetTask();
         }
+        CreateTaskList();
     }
 }

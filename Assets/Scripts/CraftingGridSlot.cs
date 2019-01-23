@@ -64,7 +64,7 @@ public class CraftingGridSlot : PlacementArea {
     public void DeactivateCrafting() {
         if(!isCrafting) return;
         isCrafting = false;
-        targetPos = placePosition + new Vector3(0f, item.bounds.center.y / 5f, 0f); ;
+        targetPos = placePosition + new Vector3(0f, item.bounds.center.y / 7f, 0f); ;
         item.transform.localRotation = item.originalRotation;
     }
 

@@ -7,17 +7,25 @@ public class MenuCurser : MonoBehaviour
 {
     [SerializeField] private Transform screen;
     [SerializeField] private MenuButtons menu;
+    [SerializeField] private TextMeshPro debugtext;
+    public static bool usable = false;
 
-    void Update()
-    {
-        // For Oculus Go
-        // Vector2 joystick = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
-        // Vector3 movement = new Vector3(joystick.x, joystick.y, 0);
+    void Update() {
+        if(!usable) return;
 
-        // For PC
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
-
+        Vector3 movement;
+        if(OVRInput.IsControllerConnected(OVRInput.Controller.RTrackedRemote)) {
+            // For Oculus Go
+            Vector2 joystick = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
+            movement = new Vector3(joystick.x, joystick.y, 0);
+        } else {
+            // For PC
+            movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+        }
         movement = movement * 0.01f;
+
+        if(debugtext != null)
+            debugtext.SetText(movement.ToString());
 
         Vector3 euler = screen.eulerAngles;
         screen.eulerAngles = new Vector3(0, 0, 0);
@@ -51,10 +59,11 @@ public class MenuCurser : MonoBehaviour
                     menu.UseButton(name);
 
                 // for Oculus Go
-                // if (OVRInput.Get(OVRInput.Button.PrimaryThumbstick))
-                    // menu.UseButton(name);
+                 if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+                     menu.UseButton(name);
             }
 
         }
+
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Container : MonoBehaviour
 {
@@ -96,23 +97,27 @@ public class Container : MonoBehaviour
 
     private IEnumerator Exploding()
     {
+        GameController._.Lose();
         GameObject currentExplosion = Instantiate(explosion, transform);
         GameObject room = Instantiate(darkRoom, player);
         //darkRoom.SetActive(true);
         explode = true;
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
         //darkRoom.SetActive(false);
         t = 0.0f;
         explode = false;
         Destroy(currentExplosion);
         Destroy(room);
+        SceneManager.LoadScene(1);
     }
 
     private IEnumerator Confetti()
     {
+        GameController._.Win();
         GameObject currentConfetti = Instantiate(confetti, transform);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(7f);
         Destroy(currentConfetti);
+        SceneManager.LoadScene(1);
     }
 }

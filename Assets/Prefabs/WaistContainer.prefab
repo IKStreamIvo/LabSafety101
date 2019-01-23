@@ -94,6 +94,10 @@ MonoBehaviour:
   acceptsType: 1
   targetedColor: {r: 1, g: 0, b: 0, a: 0}
   render: {fileID: 0}
+  explosion: {fileID: 0}
+  darkRoom: {fileID: 0}
+  player: {fileID: 0}
+  confetti: {fileID: 0}
 --- !u!65 &6954956042019235844
 BoxCollider:
   m_ObjectHideFlags: 0

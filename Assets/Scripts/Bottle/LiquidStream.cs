@@ -44,6 +44,8 @@ public class LiquidStream : MonoBehaviour
     public void ChangeColor(Color clr)
     {
         rend.material.color = clr;
+        var main = ps.main;
+        main.startColor = clr;
     }
 
     // Change color of stream
